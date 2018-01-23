@@ -1,0 +1,4 @@
+ScientificPython
+cython
+oldnumeric
+py3c
