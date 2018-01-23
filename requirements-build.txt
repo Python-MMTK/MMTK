@@ -1,0 +1,6 @@
+ScientificPython
+cython
+oldnumeric
+py3c
+pytest
+pytest-xdist
