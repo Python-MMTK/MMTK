@@ -69,7 +69,7 @@ class Residue(Biopolymers.Residue):
         if self.model == 'calpha':
             return self
         if self.symbol.lower() != 'cys':
-            raise ValueError(`self` + " is not cysteine.")
+            raise ValueError(self + " is not cysteine.")
         new_residue = 'cystine_ss'
         if self.isNTerminus():
             new_residue = new_residue + '_nt'
@@ -90,14 +90,14 @@ class Residue(Biopolymers.Residue):
     def backbone(self):
         """
         :returns: the peptide group
-        :rtype: :class:`~MMTK.ChemicalObjects.Group`
+        :rtype: :class:~MMTK.ChemicalObjects.Group
         """
         return self.peptide
 
     def sidechains(self):
         """
         :returns: the sidechain group
-        :rtype: :class:`~MMTK.ChemicalObjects.Group`
+        :rtype: :class:~MMTK.ChemicalObjects.Group
         """
         return self.sidechain
 
@@ -230,7 +230,7 @@ class PeptideChain(Biopolymers.ResidueChain):
     :param sequence: the amino acid sequence. This can be a string
                      containing the one-letter codes, or a list
                      of three-letter codes, or a
-                     :class:`~MMTK.PDB.PDBPeptideChain` object.
+                     :class:~MMTK.PDB.PDBPeptideChain object.
                      If a PDBPeptideChain object is supplied, the atomic
                      positions it contains are assigned to the atoms
                      of the newly generated peptide chain, otherwise the
@@ -325,7 +325,7 @@ class PeptideChain(Biopolymers.ResidueChain):
     def backbone(self):
         """
         :returns: the peptide groups of all residues
-        :rtype: :class:`~MMTK.Collections.Collection`
+        :rtype: :class:~MMTK.Collections.Collection
         """
         backbone = Collections.Collection()
         for r in self.groups:
@@ -338,7 +338,7 @@ class PeptideChain(Biopolymers.ResidueChain):
     def sidechains(self):
         """
         :returns: the sidechain groups of all residues
-        :rtype: :class:`~MMTK.Collections.Collection`
+        :rtype: :class:~MMTK.Collections.Collection
         """
         sidechains = Collections.Collection()
         for r in self.groups:
@@ -397,7 +397,7 @@ class PeptideChain(Biopolymers.ResidueChain):
         if r_old.name.startswith(r_old.symbol):
             r_new.name = r_new.symbol+r_old.name[len(r_old.symbol):]
         else:
-            r_new.name = r_new.symbol+`n+1`
+            r_new.name = r_new.symbol+n+1
         r_new.parent = self
         self.groups[n] = r_new
         if n > 0:
@@ -444,9 +444,9 @@ class PeptideChain(Biopolymers.ResidueChain):
                                           cys_ss2.sidechain.S_gamma)))
 
     def _descriptionSpec(self):
-        kwargs = ','.join([name + '=' + `self.version_spec[name]`
+        kwargs = ','.join([name + '=' + self.version_spec[name]
                            for name in sorted(self.version_spec.keys())])
-	return "S", kwargs
+        return "S", kwargs
 
     def _typeName(self):
         return ''.join(self.sequence())
@@ -655,7 +655,7 @@ class Protein(ChemicalObjects.Complex):
     """
     Protein
 
-    A Protein object is a special kind of :class:`~MMTK.ChemicalObjects.Complex`
+    A Protein object is a special kind of :class:~MMTK.ChemicalObjects.Complex
     object which is made up of peptide chains and possibly ligands.
 
     If the atoms in the peptide chains that make up a protein have
@@ -724,7 +724,7 @@ class Protein(ChemicalObjects.Complex):
         for m, i in zip(molecules, range(len(molecules))):
             m._numbers = [i]
             if not m.name:
-                m.name = 'chain'+`i`
+                m.name = 'chain'+i
         ss = self._findSSBridges(molecules)
         new_mol = {}
         for m in molecules:
@@ -818,7 +818,7 @@ class Protein(ChemicalObjects.Complex):
         :type types: sequence of str
         :returns: all residues whose type (one- or three-letter code)
                   is contained in types
-        :rtype: :class:`~MMTK.Collections.Collection`
+        :rtype: :class:~MMTK.Collections.Collection
         """
         rlist = Collections.Collection([])
         for m in self.molecules:
@@ -829,7 +829,7 @@ class Protein(ChemicalObjects.Complex):
     def backbone(self):
         """
         :returns: the peptide groups of all residues in all chains
-        :rtype: :class:`~MMTK.Collections.Collection`
+        :rtype: :class:~MMTK.Collections.Collection
         """
         rlist = Collections.Collection([])
         for m in self.molecules:
@@ -840,7 +840,7 @@ class Protein(ChemicalObjects.Complex):
     def sidechains(self):
         """
         :returns: the sidechain groups of all residues in all chains
-        :rtype: :class:`~MMTK.Collections.Collection`
+        :rtype: :class:~MMTK.Collections.Collection
         """
         rlist = Collections.Collection([])
         for m in self.molecules:
@@ -851,7 +851,7 @@ class Protein(ChemicalObjects.Complex):
     def residues(self):
         """
         :returns: all residues in all chains
-        :rtype: :class:`~MMTK.Collections.Collection`
+        :rtype: :class:~MMTK.Collections.Collection
         """
         rlist = Collections.Collection([])
         for m in self.molecules:
@@ -892,7 +892,7 @@ class Protein(ChemicalObjects.Complex):
     def _description(self, tag, index_map, toplevel):
         if not toplevel:
             raise ValueError
-        return 'l(' + `self.__class__.__name__` + ',' + `self.name` + ',[' + \
+        return 'l(' + self.__class__.__name__ + ',' + self.name + ',[' + \
                ','.join(o._description(tag, index_map, True) for o in self) + \
                '])'
 

@@ -13,7 +13,7 @@ from Scientific.IO.TextFile import TextFile
 
 # Open the configuration file and read the box size.
 conf_file = TextFile('argon.conf.gz')
-lx, ly, lz = map(string.atof, string.split(conf_file.readline()))
+lx, ly, lz = map(string.atof, (conf_file.readline()).split())
 
 # Construct a periodic universe using a Lennard-Jones (noble gas) force field
 # with a cutoff of 15 Angstrom.
@@ -24,7 +24,7 @@ universe = OrthorhombicPeriodicUniverse((lx*Units.Ang,
 while 1:
     line = conf_file.readline()
     if not line: break
-    x, y, z = map(string.atof, string.split(line))
+    x, y, z = map(string.atof, (line).split())
     universe.addObject(Atom('Ar', position=Vector(x*Units.Ang,
                                                   y*Units.Ang, z*Units.Ang)))
 

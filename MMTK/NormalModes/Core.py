@@ -84,14 +84,14 @@ class Mode(ParticleProperties.ParticleVector):
 
     def view(self, factor=1., subset=None):
         """
-        Start an animation of the mode. See :class:`~MMTK.Visualization` for
+        Start an animation of the mode. See :class:~MMTK.Visualization for
         the configuration of external viewers.
 
         :param factor: a scaling factor for the amplitude of the motion
         :type factor: float
         :param subset: the subset of the universe to be shown
                        (default: the whole universe)
-        :type subset: :class:`~MMTK.Collections.GroupOfAtoms`
+        :type subset: :class:~MMTK.Collections.GroupOfAtoms
         """
         Visualization.viewMode(self, factor, subset)
 
@@ -162,7 +162,7 @@ class NormalModes(object):
                            of 6 is right for molecules in vacuum.
         :type first_mode: int
         :returns: the thermal fluctuations for each atom in the universe
-        :rtype: :class:`~MMTK.ParticleProperties.ParticleScalar`
+        :rtype: :class:~MMTK.ParticleProperties.ParticleScalar
         """
         raise NotImplementedError
 
@@ -174,7 +174,7 @@ class NormalModes(object):
         :type first_mode: int
         :returns: the anisotropic thermal fluctuations for each
                   atom in the universe
-        :rtype: :class:`~MMTK.ParticleProperties.ParticleTensor`
+        :rtype: :class:~MMTK.ParticleProperties.ParticleTensor
         """
         raise NotImplementedError
 
@@ -324,7 +324,7 @@ class NormalModes(object):
                                 work, work.shape[0], iwork, 0)
                 self.basis[:min_n_m] = u
             if result['info'] != 0:
-                raise ValueError('Lapack SVD: ' + `result['info']`)
+                raise ValueError('Lapack SVD: ' + result['info'])
             svmax = N.maximum.reduce(sv)
             nexcluded = N.add.reduce(N.greater(sv, 1.e-10*svmax))
             ntotal = nexcluded + nmodes
@@ -353,7 +353,7 @@ class NormalModes(object):
                                 work, work.shape[0], iwork, 0)
                 self.basis[:min_n_m] = u
             if result['info'] != 0:
-                raise ValueError('Lapack SVD: ' + `result['info']`)
+                raise ValueError('Lapack SVD: ' + result['info'])
             svmax = N.maximum.reduce(sv)
             ntotal = N.add.reduce(N.greater(sv, 1.e-10*svmax))
             nmodes = ntotal - nexcluded
@@ -387,7 +387,7 @@ class NormalModes(object):
                                 work, work.shape[0], iwork, 0)
                 self.basis[:min_n_m] = u
             if result['info'] != 0:
-                raise ValueError('Lapack SVD: ' + `result['info']`)
+                raise ValueError('Lapack SVD: ' + result['info'])
             svmax = N.maximum.reduce(sv)
             nmodes = N.add.reduce(N.greater(sv, 1.e-10*svmax))
             ntotal = nmodes

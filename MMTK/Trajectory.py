@@ -44,13 +44,13 @@ class Trajectory(object):
      * len(t) is the number of steps
      * t[i] is the data for step i, in the form of a dictionary that
        maps variable names to data
-     * t[i:j] and t[i:j:n] return a :class:`~MMTK.Trajectory.SubTrajectory` 
+     * t[i:j] and t[i:j:n] return a :class:~MMTK.Trajectory.SubTrajectory 
        object that refers to a subset of the total number of steps 
        (no data is copied)
      * t.variable returns the value of the named variable at all
        time steps. If the variable is a simple scalar, it is read
        completely and returned as an array. If the variable contains
-       data for each atom, a :class:`~MMTK.Trajectory.TrajectoryVariable` 
+       data for each atom, a :class:~MMTK.Trajectory.TrajectoryVariable 
        object is returned from which data at specific steps can be obtained 
        by further indexing operations.
 
@@ -70,7 +70,7 @@ class Trajectory(object):
                        description stored in the trajectory file. This universe
                        object can be accessed via the attribute 'universe'
                        of the trajectory object.
-        :type object: :class:`~MMTK.ChemicalObjects.ChemicalObject`
+        :type object: :class:~MMTK.ChemicalObjects.ChemicalObject
         :param filename: the name of the trajectory file
         :type filename: str
         :param mode: one of "r" (read-only), "w" (create new file for writing),
@@ -280,7 +280,7 @@ class Trajectory(object):
         time steps.
 
         :param atom: the atom whose trajectory is requested
-        :type atom: :class:`~MMTK.ChemicalObjects.Atom`
+        :type atom: :class:~MMTK.ChemicalObjects.Atom
         :param first: the number of the first step to be read
         :type first: int
         :param last: the number of the first step not to be read.
@@ -300,7 +300,7 @@ class Trajectory(object):
                          and real coordinates.
         :type variable: str
         :returns: the trajectory for a single atom
-        :rtype: :class:`~MMTK.Trajectory.ParticleTrajectory`
+        :rtype: :class:~MMTK.Trajectory.ParticleTrajectory
         """
         return ParticleTrajectory(self, atom, first, last, skip, variable)
 
@@ -312,7 +312,7 @@ class Trajectory(object):
         orientation as a quaternion) by an optimal-transformation fit.
 
         :param object: the object whose rigid-body trajectory is requested
-        :type object: :class:`~MMTK.Collections.GroupOfAtoms`
+        :type object: :class:~MMTK.Collections.GroupOfAtoms
         :param first: the number of the first step to be read
         :type first: int
         :param last: the number of the first step not to be read.
@@ -322,9 +322,9 @@ class Trajectory(object):
         :param skip: the number of steps to skip between two steps read
         :type skip: int
         :param reference: the reference configuration for the fit
-        :type reference: :class:`~MMTK.ParticleProperties.Configuration`
+        :type reference: :class:~MMTK.ParticleProperties.Configuration
         :returns: the trajectory for a single rigid body
-        :rtype: :class:`~MMTK.Trajectory.RigidBodyTrajectory`
+        :rtype: :class:~MMTK.Trajectory.RigidBodyTrajectory
         """
         return RigidBodyTrajectory(self, object, first, last, skip, reference)
 
@@ -357,7 +357,7 @@ class Trajectory(object):
         :param object: the object to be animated, which must be in the
                        universe stored in the trajectory. None
                        stands for the whole universe.
-        :type object: :class:`~MMTK.Collections.GroupOfAtoms`
+        :type object: :class:~MMTK.Collections.GroupOfAtoms
         """
         Visualization.viewTrajectory(self, first, last, skip, object)
 
@@ -520,7 +520,7 @@ class TrajectoryVariable(object):
 class SubVariable(TrajectoryVariable):
 
     """
-    Reference to a subset of a :class:`~MMTK.Trajectory.TrajectoryVariable`
+    Reference to a subset of a :class:~MMTK.Trajectory.TrajectoryVariable
 
     A SubVariable object is created by slicing a TrajectoryVariable
     object or another SubVariable object. It provides all the operations
@@ -553,7 +553,7 @@ class TrajectorySet(object):
 
     A TrajectorySet permits to treat a sequence of trajectory files
     like a single trajectory for reading data. It behaves exactly like a
-    :class:`~MMTK.Trajectory.Trajectory` object. The trajectory files must all contain data
+    :class:~MMTK.Trajectory.Trajectory object. The trajectory files must all contain data
     for the same system. The variables stored in the individual files
     need not be the same, but only variables common to all files
     can be accessed.
@@ -804,8 +804,8 @@ class ParticleTrajectory(object):
     Trajectory data for a single particle
 
     A ParticleTrajectory object is created by calling the method
-    :func:`~MMTK.Trajectory.Trajectory.readParticleTrajectory`
-    on a :class:`~MMTK.Trajectory.Trajectory` object.
+    :func:~MMTK.Trajectory.Trajectory.readParticleTrajectory
+    on a :class:~MMTK.Trajectory.Trajectory object.
 
     If pt is a ParticleTrajectory object, then
 
@@ -851,8 +851,8 @@ class RigidBodyTrajectory(object):
     Rigid-body trajectory data
 
     A RigidBodyTrajectory object is created by calling the method
-    :func:`~MMTK.Trajectory.Trajectory.readRigidBodyTrajectory`
-    on a :class:`~MMTK.Trajectory.Trajectory` object.
+    :func:~MMTK.Trajectory.Trajectory.readRigidBodyTrajectory
+    on a :class:~MMTK.Trajectory.Trajectory object.
 
     If rbt is a RigidBodyTrajectory object, then
 
@@ -1024,7 +1024,7 @@ class TrajectoryGenerator(object):
     def optionString(self, options):
         s = ''
         for o in options:
-            s = s + o + '=' + `self.getOption(o)` + ', '
+            s = s + o + '=' + self.getOption(o) + ', '
         return s[:-2]
 
     def run(self, function, args):
@@ -1386,8 +1386,8 @@ def trajectoryInfo(filename):
         s += file.comment + '\n'
     except AttributeError:
         pass
-    s += `file.dimensions['atom_number']` + ' atoms\n'
-    s += `nsteps` + ' steps\n'
+    s += file.dimensions['atom_number'] + ' atoms\n'
+    s += nsteps + ' steps\n'
     s += file.history
     file.close()
     return s

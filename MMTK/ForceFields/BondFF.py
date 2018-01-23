@@ -38,7 +38,7 @@ class BondForceField(AmberBondedForceField):
         try:
             p = self.dataset.bondParameters(t1, t2)
         except KeyError:
-            raise KeyError('No parameters for bond ' + `a1` +  '--' + `a2`)
+            raise KeyError('No parameters for bond ' + a1 +  '--' + a2)
         if p is not None:
             d = data.get('universe').distance(a1, a2)
             data.add('bonds', (i1, i2, d, p[1]))
@@ -59,8 +59,8 @@ class BondForceField(AmberBondedForceField):
         try:
             p = self.dataset.bondAngleParameters(t1, tc, t2)
         except KeyError:
-            raise KeyError('No parameters for angle ' + `a1` +
-                            '--' + `ca` + '--' + `a2`)
+            raise KeyError('No parameters for angle ' + a1 +
+                            '--' + ca + '--' + a2)
         if p is not None:
             v1 = a1.position()-ca.position()
             v2 = a2.position()-ca.position()

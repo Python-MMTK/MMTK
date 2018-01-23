@@ -22,7 +22,7 @@ def gradientTest(universe, atoms = None, delta = 0.0001):
     Test gradients by comparing to numerical derivatives of the energy.
 
     :param universe: the universe on which the test is performed
-    :type universe: :class:`~MMTK.Universe.Universe`
+    :type universe: :class:~MMTK.Universe.Universe
     :param atoms: the atoms of the universe for which the gradient
                   is tested (default: all atoms)
     :type atoms: list
@@ -56,7 +56,7 @@ def forceConstantTest(universe, atoms = None, delta = 0.0001):
     of the gradients.
 
     :param universe: the universe on which the test is performed
-    :type universe: :class:`~MMTK.Universe.Universe`
+    :type universe: :class:~MMTK.Universe.Universe
     :param atoms: the atoms of the universe for which the gradient
                   is tested (default: all atoms)
     :type atoms: list
@@ -90,7 +90,7 @@ def virialTest(universe):
     positions and gradients.
 
     :param universe: the universe on which the test is performed
-    :type universe: :class:`~MMTK.Universe.Universe`
+    :type universe: :class:~MMTK.Universe.Universe
     """
     ev = universe.energyEvaluator()
     e, grad = ev(gradients = True)

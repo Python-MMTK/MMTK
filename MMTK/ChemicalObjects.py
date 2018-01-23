@@ -88,7 +88,7 @@ class ChemicalObject(Collections.GroupOfAtoms, Visualization.Viewable):
         """
         :returns: the universe to which the object belongs,
                   or None if the object does not belong to any universe
-        :rtype: :class:`~MMTK.Universe.Universe`
+        :rtype: :class:~MMTK.Universe.Universe
         """
         if self.parent is None:
             return None
@@ -220,7 +220,7 @@ class ChemicalObject(Collections.GroupOfAtoms, Visualization.Viewable):
 
     def writeXML(self, file, memo, toplevel=1):
         if self.type is None:
-            name = 'm' + `memo['counter']`
+            name = 'm' + memo['counter']
             memo['counter'] = memo['counter'] + 1
             memo[id(self)] = name
             atoms = copy.copy(self.atoms)
@@ -383,7 +383,7 @@ class CompositeChemicalObject(object):
                         object = object.parent
                 if not levels:
                     raise KeyError('Property ' + property +
-                                    ' not defined for  ', `atom`)
+                                    ' not defined for  ', atom)
                 return levels[-1].getAtomProperty(atom, property, levels[:-1])
 
     def deleteUndefinedAtoms(self):
@@ -467,14 +467,14 @@ class CompositeChemicalObject(object):
 
     def _description(self, tag, index_map, toplevel):
         letter, kwargs = self._descriptionSpec()
-        s = [letter, '(', `self.name`, ',[']
+        s = [letter, '(', self.name, ',[']
         s.extend([o._description(tag, index_map, 0) + ','
                   for o in self._subunits()])
         s.extend([a._description(tag, index_map, 0) + ','
                   for a in self.atoms if not hasattr(a, tag)])
         s.append(']')
         if toplevel:
-            s.extend([',', `self._typeName()`])
+            s.extend([',', self._typeName()])
         if kwargs is not None:
             s.extend([',', kwargs])
         constraints = self._distanceConstraintList()
@@ -685,10 +685,10 @@ class Atom(ChemicalObject):
         else:
             index = index_map[self.index]
         if toplevel:
-            return 'A(' + `self.name` + ',' + `index` + ',' + \
-                   `self.symbol` + ')'
+            return 'A(' + self.name + ',' + index + ',' + \
+                   self.symbol + ')'
         else:
-            return 'A(' + `self.name` + ',' + `index` + ')'
+            return 'A(' + self.name + ',' + index + ')'
 
     def _graphics(self, conf, distance_fn, model, module, options):
         #PJC change:
@@ -867,7 +867,7 @@ class Molecule(CompositeChemicalObject, ChemicalObject):
                     method = self._h_methods[a.symbol][n][nb]
                 except KeyError:
                     raise ValueError("Can't handle this yet: " +
-                                      a.symbol + ' with ' + `n` + ' bonds (' +
+                                      a.symbol + ' with ' + n + ' bonds (' +
                                       a.fullName() + ').')
                 method(self, a, known, list)
         finally:
@@ -1164,7 +1164,7 @@ class Complex(CompositeChemicalObject, ChemicalObject):
 
     def writeXML(self, file, memo, toplevel=1):
         if self.type is None:
-            name = 'm' + `memo['counter']`
+            name = 'm' + memo['counter']
             memo['counter'] = memo['counter'] + 1
             memo[id(self)] = name
             for molecule in self.molecules:
@@ -1243,7 +1243,7 @@ class AtomCluster(CompositeChemicalObject, ChemicalObject):
         return []
 
     def _description(self, tag, index_map, toplevel):
-        s = 'AC(' + `self.name` + ',['
+        s = 'AC(' + self.name + ',['
         for a in self.atoms:
             s = s + a._description(tag, index_map, 1) + ','
         s = s + ']'

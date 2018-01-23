@@ -6,8 +6,8 @@
 """
 Progress bars for simulations
 
-If the `progressbar <https://pypi.python.org/pypi/progressbar>`_ package
-(version 2.3 or greater) is installed, :class:`ProgressOutput` outputs a
+If the progressbar <https://pypi.python.org/pypi/progressbar>_ package
+(version 2.3 or greater) is installed, :class:ProgressOutput outputs a
 progress bar during a simulation::
 
     37% |###############                           | 0:00:17 / ETA:  0:00:29
@@ -41,7 +41,7 @@ from MMTK.Trajectory import LogOutput
 class _ProgressIO(object):
     """
     A sufficiently file-like object that can be passed to
-    :class:`MMTK.Trajectory.LogOutput` to get the current step number of the
+    :class:MMTK.Trajectory.LogOutput to get the current step number of the
     trajectory.
     """
 
@@ -127,7 +127,7 @@ class _PercentIO(_ProgressIO):
 
 class ProgressOutput(LogOutput):
     """
-    A :class:`~MMTK.Trajectory.TrajectoryAction` that prints out the trajectory
+    A :class:~MMTK.Trajectory.TrajectoryAction that prints out the trajectory
     progress.
     """
 

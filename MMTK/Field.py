@@ -103,7 +103,7 @@ class AtomicField(object):
     def particleValues(self):
         """
         :returns: the values of the field at the positions of the atoms
-        :rtype: :class:`~MMTK.ParticleProperties.ParticleProperty`
+        :rtype: :class:~MMTK.ParticleProperties.ParticleProperty
         """
         universe = self.system.universe()
         rank = self.field.rank
@@ -177,7 +177,7 @@ class AtomicScalarField(AtomicField, Visualization.Viewable):
                           atoms in a cube centered on the point.
         :type grid_size: float
         :param values: the atomic values that define the field
-        :type values: :class:`~MMTK.ParticleProperties.ParticleScalar`
+        :type values: :class:~MMTK.ParticleProperties.ParticleScalar
         """
         if values is not None and values.value_rank != 0:
             raise TypeError("data not a vector field")
@@ -187,7 +187,7 @@ class AtomicScalarField(AtomicField, Visualization.Viewable):
     def gradient(self):
         """
         :returns: the gradient of the field
-        :rtype: :class:`~MMTK.Field.AtomicVectorField`
+        :rtype: :class:~MMTK.Field.AtomicVectorField
         """
         field = self.field.gradient()
         return AtomicVectorField(self.system, (self.box, field,
@@ -196,7 +196,7 @@ class AtomicScalarField(AtomicField, Visualization.Viewable):
     def laplacian(self):
         """
         :returns: the laplacian of the field
-        :rtype: :class:`~MMTK.Field.AtomicScalarField`
+        :rtype: :class:~MMTK.Field.AtomicScalarField
         """
         field = self.field.laplacian()
         return AtomicScalarField(self.system, (self.box, field,
@@ -255,7 +255,7 @@ class AtomicVectorField(AtomicField, Visualization.Viewable):
                           atoms in a cube centered on the point.
         :type grid_size: float
         :param values: the atomic values that define the field
-        :type values: :class:`~MMTK.ParticleProperties.ParticleVector`
+        :type values: :class:~MMTK.ParticleProperties.ParticleVector
         """
         if values is not None and values.value_rank != 1:
             raise TypeError("data not a vector field")
@@ -265,7 +265,7 @@ class AtomicVectorField(AtomicField, Visualization.Viewable):
     def length(self):
         """
         :returns: a field of the length of the field vectors
-        :rtype: :class:`~MMTK.Field.AtomicScalarField`
+        :rtype: :class:~MMTK.Field.AtomicScalarField
         """
         field = self.field.length()
         return AtomicScalarField(self.system, (self.box, field,
@@ -274,7 +274,7 @@ class AtomicVectorField(AtomicField, Visualization.Viewable):
     def divergence(self):
         """
         :returns: the divergence of the field
-        :rtype: :class:`~MMTK.Field.AtomicScalarField`
+        :rtype: :class:~MMTK.Field.AtomicScalarField
         """
         field = self.field.divergence()
         return AtomicScalarField(self.system, (self.box, field,
@@ -283,7 +283,7 @@ class AtomicVectorField(AtomicField, Visualization.Viewable):
     def curl(self):
         """
         :returns: the curl of the field
-        :rtype: :class:`~MMTK.Field.AtomicVectorField`
+        :rtype: :class:~MMTK.Field.AtomicVectorField
         """
         field = self.field.curl()
         return AtomicVectorField(self.system, (self.box, field,
@@ -292,7 +292,7 @@ class AtomicVectorField(AtomicField, Visualization.Viewable):
     def laplacian(self):
         """
         :returns: the laplacian of the field
-        :rtype: :class:`~MMTK.Field.AtomicVectorField`
+        :rtype: :class:~MMTK.Field.AtomicVectorField
         """
         field = self.field.curl()
         return AtomicVectorField(self.system, (self.box, field,

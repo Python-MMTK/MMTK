@@ -3,9 +3,11 @@
 # Written by Konrad Hinsen
 #
 
+import unittest
+
 from Scientific import N
 
-class SubsetTest(object):
+class SubsetTest:
 
     def test_singleSubset(self):
         outside = set(self.universe.atomList())-set(self.subset1.atomList())

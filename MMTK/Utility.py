@@ -101,7 +101,7 @@ _unique_attributes = 0
 def uniqueAttribute():
     global _unique_attributes
     _unique_attributes = (_unique_attributes + 1) % 10000
-    return '_' + `_unique_attributes` + '__'
+    return '_' + _unique_attributes + '__'
 
 #
 # Ensure that items in a pair are ordered

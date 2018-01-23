@@ -47,13 +47,13 @@ class Bond(object):
     __had_initargs__ = 1
 
     def __repr__(self):
-        return 'Bond(' + `self.a1` + ', ' + `self.a2` + ')'
+        return 'Bond(' + self.a1 + ', ' + self.a2 + ')'
     __str__ = __repr__
 
     def hasAtom(self, a):
         """
         :param a: an atom
-        :type a: :class:`~MMTK.ChemicalObjects.Atom`
+        :type a: :class:~MMTK.ChemicalObjects.Atom
         :returns: True if a participates in the bond
         """
         return a is self.a1 or a is self.a2
@@ -61,9 +61,9 @@ class Bond(object):
     def otherAtom(self, a):
         """
         :param a: an atom involved in the bond
-        :type a: :class:`~MMTK.ChemicalObjects.Atom`
+        :type a: :class:~MMTK.ChemicalObjects.Atom
         :returns: the atom at the other end of the bond
-        :rtype: :class:`~MMTK.ChemicalObjects.Atom`
+        :rtype: :class:~MMTK.ChemicalObjects.Atom
         :raises ValueError: if a does not belong to the bond
         """
         if a is self.a1:
@@ -135,14 +135,14 @@ class BondAngle(object):
         Utility.uniqueID.registerObject(self)
 
     def __repr__(self):
-        return 'BondAngle(' + `self.a1` +',' + `self.ca` +','+ `self.a2` +')'
+        return 'BondAngle(' + self.a1 +',' + self.ca +','+ self.a2 +')'
 
     def otherBond(self, bond):
         """
         :param bond: a bond involved in the angle
-        :type bond: :class:`~MMTK.Bonds.Bond`
+        :type bond: :class:~MMTK.Bonds.Bond
         :returns: the other bond involved in the angle
-        :rtype: :class:`~MMTK.Bonds.Bond`
+        :rtype: :class:~MMTK.Bonds.Bond
         :raises ValueError: if bond does not belong to the angle
         """
         if bond is self.b1:
@@ -202,11 +202,11 @@ class DihedralAngle(object):
 
     def __repr__(self):
         if self.improper:
-            return 'ImproperDihedral(' + `self.a1` +','+ `self.a2` +','+ \
-                   `self.a3` +','+ `self.a4` +')'
+            return 'ImproperDihedral(' + self.a1 +','+ self.a2 +','+ \
+                   self.a3 +','+ self.a4 +')'
         else:
-            return 'Dihedral(' + `self.a1` +','+ `self.a2` +','+ \
-                   `self.a3` +','+ `self.a4` +')'
+            return 'Dihedral(' + self.a1 +','+ self.a2 +','+ \
+                   self.a3 +','+ self.a4 +')'
 
 #
 # Bond lists
@@ -266,7 +266,7 @@ class BondList(list):
         """
         :returns: a list of all bond angles that can be formed from the
                   bonds in the list
-        :rtype: :class:`~MMTK.Bonds.BondAngleList`
+        :rtype: :class:~MMTK.Bonds.BondAngleList
         """
         if self.bond_angles is None:
             # find all atoms that are involved in more than one bond
@@ -299,7 +299,7 @@ class BondList(list):
         """
         :returns: a list of all dihedral angles that can be formed from the
                   bonds in the list
-        :rtype: :class:`~MMTK.Bonds.DihedralAngleList`
+        :rtype: :class:~MMTK.Bonds.DihedralAngleList
         """
         if self.dihedral_angles is None:
             self.dihedral_angles = self.bondAngles().dihedralAngles()
@@ -308,7 +308,7 @@ class BondList(list):
     def bondedTo(self, atom):
         """
         :param atom: an atom
-        :type atom: :class:`~MMTK.ChemicalObjects.Atom`
+        :type atom: :class:~MMTK.ChemicalObjects.Atom
         :returns: a list of all atoms to which the given atom is bound
         :rtype: list
         """
@@ -317,7 +317,7 @@ class BondList(list):
     def bondsOf(self, atom):
         """
         :param atom: an atom
-        :type atom: :class:`~MMTK.ChemicalObjects.Atom`
+        :type atom: :class:~MMTK.ChemicalObjects.Atom
         :returns: a list of all bonds in which the given atom is involved
         :rtype: list
         """
@@ -358,7 +358,7 @@ class BondAngleList(object):
         """
         :returns: a list of all dihedral angles that can be formed from the
                   bond angles in the list
-        :rtype: :class:`~MMTK.Bonds.DihedralAngleList`
+        :rtype: :class:~MMTK.Bonds.DihedralAngleList
         """
         # find all bonds that are involved in more than one bond angle
         angles = {}

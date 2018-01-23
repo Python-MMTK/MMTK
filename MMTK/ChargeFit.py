@@ -51,9 +51,9 @@ class ChargeFit(object):
                        The latter case permits combined fits for several
                        conformations of the system.
         :param constraints: an optional list of constraint objects
-                            (:class:`~MMTK.ChargeFit.TotalChargeConstraint`
+                            (:class:~MMTK.ChargeFit.TotalChargeConstraint
                             and/or
-                            :class:`~MMTK.ChargeFit.EqualityConstraint` objects). 
+                            :class:~MMTK.ChargeFit.EqualityConstraint objects). 
                             If the constraints are inconsistent, a warning is
                             printed and the result will satisfy the
                             constraints only in a least-squares sense.
@@ -133,7 +133,7 @@ class TotalChargeConstraint(object):
     """
     Constraint on the total system charge
 
-    To be used with :class:`~MMTK.ChargeFit.ChargeFit`
+    To be used with :class:~MMTK.ChargeFit.ChargeFit
     """
 
     def __init__(self, system, charge):
@@ -161,7 +161,7 @@ class EqualityConstraint(object):
     """
     Constraint forcing two charges to be equal
 
-    To be used with :class:`~MMTK.ChargeFit.ChargeFit`
+    To be used with :class:~MMTK.ChargeFit.ChargeFit
 
     Any atom may occur in more than one EqualityConstraint object,
     in order to keep the charges of more than two atoms equal.
@@ -170,9 +170,9 @@ class EqualityConstraint(object):
     def __init__(self, atom1, atom2):
         """
         :param atom1: the first atom in the equality relation
-        :type atom1: :class:`~MMTK.ChemicalObjects.Atom`
+        :type atom1: :class:~MMTK.ChemicalObjects.Atom
         :param atom2: the second atom in the equality relation
-        :type atom2: :class:`~MMTK.ChemicalObjects.Atom`
+        :type atom2: :class:~MMTK.ChemicalObjects.Atom
         """
         self.a1 = atom1
         self.a2 = atom2
