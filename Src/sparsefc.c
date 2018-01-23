@@ -447,7 +447,7 @@ accessFunction(PyObject *self, PyObject *args)
   PySparseFCObject *fc = (PySparseFCObject *)self;
   if (!PyArg_ParseTuple(args, ""))
     return NULL;
-  return PyCObject_FromVoidPtr((void *)fc->fc_fn, NULL);
+  return PyCapsule_New((void *)fc->fc_fn, NULL, NULL);
 }
 
 static PyObject *
@@ -621,7 +621,7 @@ static struct PyMethodDef sparsefc_methods[] = {
 static PyObject *
 sparsefc_getattr(PySparseFCObject *self, char *name)
 {
-  return Py_FindMethod(sparsefc_methods, (PyObject *)self, name);
+  return PyObject_GenericGetAttr((PyObject *)self, name);
 }
 
 /* Sequence protocol */

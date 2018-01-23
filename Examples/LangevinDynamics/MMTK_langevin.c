@@ -432,16 +432,22 @@ static PyMethodDef langevin_methods[] = {
   {NULL, NULL}		/* sentinel */
 };
 
+static struct PyModuleDef moduledef = {
+    PyModuleDef_HEAD_INIT,
+    .m_name = "MMTK_langevin",
+    .m_size = -1,
+    .m_methods = langevin_methods,
+};
+
 /* Initialization function for the module */
 
-void
-initMMTK_langevin()
+MODULE_INIT_FUNC(MMTK_langevin)
 {
   PyObject *m, *dict;
   PyObject *universe, *trajectory, *forcefield, *units;
 
   /* Create the module and add the functions */
-  m = Py_InitModule("MMTK_langevin", langevin_methods);
+  m = PyModule_Create(&moduledef);
   dict = PyModule_GetDict(m);
 
   /* Import the array module */
@@ -463,4 +469,6 @@ initMMTK_langevin()
   /* Check for errors */
   if (PyErr_Occurred())
     Py_FatalError("can't initialize module MMTK_langevin");
+  
+  return m;
 }

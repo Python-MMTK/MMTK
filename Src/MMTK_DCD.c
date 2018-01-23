@@ -228,7 +228,7 @@ writeOpenDCD(PyObject *dummy, PyObject *args)
   write_dcdheader(fd , dcdFileName, dcdAtoms, dcdNFrames, 
                   dcdFrameStart,  dcdNSavc,
                   time/akma_time_factor);
-  return (PyObject*)PyCObject_FromVoidPtr((void *) fd, NULL);
+  return (PyObject*)PyCapsule_New((void *) fd, NULL, NULL);
 }
 
 static  PyObject *
@@ -245,13 +245,13 @@ writeDCDStep(PyObject *dummy, PyObject *args)
 
   /* Parse and check arguments */
   if (!PyArg_ParseTuple(args, "O!O!O!O!",
-                        &PyCObject_Type, &fd_cobj,
+                        &PyCapsule_Type, &fd_cobj,
 			&PyArray_Type, &xconfig,
 			&PyArray_Type, &yconfig,
 			&PyArray_Type, &zconfig))
     return NULL;
 
-  fd = PyCObject_AsVoidPtr(fd_cobj);
+  fd = PyCapsule_GetPointer(fd_cobj, NULL);
   dcdAtoms = xconfig->dimensions[0];
   dcdX = (float *)xconfig->data;
   dcdY = (float *)yconfig->data;
@@ -275,10 +275,10 @@ writeCloseDCD(PyObject *dummy, PyObject *args)
 
   /* Parse and check arguments */
   if (!PyArg_ParseTuple(args, "O!",
-                        &PyCObject_Type, &fd_cobj))
+                        &PyCapsule_Type, &fd_cobj))
     return NULL;
 
-  fd = PyCObject_AsVoidPtr(fd_cobj);
+  fd = PyCapsule_GetPointer(fd_cobj, NULL);
   close_dcd_read(fd, 0, NULL);
 
   Py_INCREF(Py_None);
@@ -295,16 +295,21 @@ static PyMethodDef DCD_methods[] = {
   {NULL, NULL}		/* sentinel */
 };
 
+static struct PyModuleDef moduledef = {
+    PyModuleDef_HEAD_INIT,
+    .m_name = "MMTK_DCD",
+    .m_size = -1,
+    .m_methods = DCD_methods,
+};
 
 /* Initialization function for the module */
 
-DL_EXPORT(void)
-initMMTK_DCD(void)
+MODULE_INIT_FUNC(MMTK_DCD)
 {
-  PyObject *units;
+  PyObject *units, *m;
 
   /* Create the module and add the functions */
-  Py_InitModule("MMTK_DCD", DCD_methods);
+  m = PyModule_Create(&moduledef);
 
   /* Import the array module */
 #ifdef import_array
@@ -327,4 +332,6 @@ initMMTK_DCD(void)
   /* Check for errors */
   if (PyErr_Occurred())
     Py_FatalError("can't initialize module MMTK_DCD");
+
+  return m;
 }

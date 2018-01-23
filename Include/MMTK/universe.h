@@ -149,8 +149,8 @@ static void **PyUniverse_API;
   if (module != NULL) { \
     PyObject *module_dict = PyModule_GetDict(module); \
     PyObject *c_api_object = PyDict_GetItemString(module_dict, "_C_API"); \
-    if (PyCObject_Check(c_api_object)) { \
-      PyUniverse_API = (void **)PyCObject_AsVoidPtr(c_api_object); \
+    if (PyCapsule_CheckExact(c_api_object)) { \
+      PyUniverse_API = (void **)PyCapsule_GetPointer(c_api_object, NULL); \
     } \
   } \
 }

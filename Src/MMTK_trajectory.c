@@ -139,7 +139,7 @@ PyTrajectory_GetVariable(PyTrajectoryObject *trajectory,
     var = PyNetCDFFile_CreateVariable(trajectory->file, name, type,
 				      dimensions, nd);
     if (var != NULL && units != NULL)
-      PyNetCDFVariable_SetAttribute(var, "units", PyString_FromString(units));
+      PyNetCDFVariable_SetAttribute(var, "units", PyStr_FromString(units));
   }
   return (PyObject *)var;
 }
@@ -732,7 +732,7 @@ getattr(PyTrajectoryObject *self, char *name)
     return (PyObject *)self->box_buffer;
   }
   else
-    return Py_FindMethod(trajectory_methods, (PyObject *)self, name);
+    return PyObject_GenericGetAttr((PyObject *)self, name);
 }
 
 static int
@@ -746,21 +746,25 @@ PyTrajectory_SetAttribute(PyTrajectoryObject *self, char *name,
 
 PyTypeObject PyTrajectory_Type = {
   PyObject_HEAD_INIT(NULL)
-  0,		/*ob_size*/
-  "Trajectory",	/*tp_name*/
-  sizeof(PyTrajectoryObject),	/*tp_basicsize*/
-  0,		/*tp_itemsize*/
+#ifndef IS_PY3
+  .ob_size = 0,		/*ob_size*/
+#endif
+  .tp_name = "Trajectory",	/*tp_name*/
+  .tp_basicsize = sizeof(PyTrajectoryObject),	/*tp_basicsize*/
+  .tp_itemsize = 0,		/*tp_itemsize*/
   /* methods */
-  (destructor)trajectory_dealloc, /*tp_dealloc*/
-  0,			/*tp_print*/
-  (getattrfunc)getattr, /*tp_getattr*/
-  (setattrfunc)PyTrajectory_SetAttribute, /*tp_setattr*/
-  0,			/*tp_compare*/
-  0,                    /*tp_repr*/
-  0,			/*tp_as_number*/
-  0,			/*tp_as_sequence*/
-  0,			/*tp_as_mapping*/
-  0,			/*tp_hash*/
+  .tp_dealloc = (destructor)trajectory_dealloc, /*tp_dealloc*/
+  .tp_print = 0,			/*tp_print*/
+  .tp_getattr = (getattrfunc)getattr, /*tp_getattr*/
+  .tp_setattr = (setattrfunc)PyTrajectory_SetAttribute, /*tp_setattr*/
+#ifndef IS_PY3
+  .tp_compare = 0,			/*tp_compare*/
+#endif
+  .tp_repr = 0,                    /*tp_repr*/
+  .tp_as_number = 0,			/*tp_as_number*/
+  .tp_as_sequence = 0,			/*tp_as_sequence*/
+  .tp_as_mapping = 0,			/*tp_as_mapping*/
+  .tp_hash =  0,			/*tp_hash*/
 };
 
 /* Add a time stamp */
@@ -885,7 +889,7 @@ PyTrajectory_Open(PyObject *universe, PyObject *description,
                    PyObject_GetAttrString(universe, "_spec");
   if (universe_spec == NULL)
     return NULL;
-  if (!PyString_Check(description)) {
+  if (!PyStr_Check(description)) {
     PyErr_SetString(PyExc_TypeError, "system description not a string");
     return NULL;
   }
@@ -984,7 +988,7 @@ PyTrajectory_Open(PyObject *universe, PyObject *description,
 					  universe_spec->geometry_data_length)
 	  == -1)
 	goto error;
-      len = PyString_Size(description);
+      PyStr_AsUTF8AndSize(description, &len);
       if (len > INT_MAX) {
 	PyErr_SetString(PyExc_ValueError, "description string too long");
 	goto error;
@@ -998,7 +1002,7 @@ PyTrajectory_Open(PyObject *universe, PyObject *description,
       if (description_var == NULL)
 	goto error;
       ret = PyNetCDFVariable_WriteString(description_var,
-					 (PyStringObject *)description);
+					 (PyObject *)description);
       Py_DECREF(description_var);
       if (ret == -1)
 	goto error;
@@ -1083,12 +1087,12 @@ PyTrajectory_Open(PyObject *universe, PyObject *description,
     self->trajectory_atoms = PyInt_AsLong(n_ob);
     description_var = PyNetCDFFile_GetVariable(self->file, "description");
     if (description_var != NULL) {
-      PyStringObject *traj_description =
+      PyObject *traj_description =
 	           PyNetCDFVariable_ReadAsString(description_var);
       if (traj_description == NULL)
 	goto error;
-      if (!verify_description(PyString_AsString(description),
-			      PyString_AsString((PyObject *)
+      if (!verify_description(PyStr_AsString(description),
+			      PyStr_AsString((PyObject *)
 						    traj_description))) {
 	PyErr_SetString(PyExc_ValueError,
 			"trajectory file not compatible with universe");
@@ -1118,7 +1122,7 @@ Trajectory(PyObject *self, PyObject *args)
   int block_size = 1;
 
   if (!PyArg_ParseTuple(args, "OO!Os|siii:Trajectory",
-			&universe, &PyString_Type, &description, &index_map, 
+			&universe, &PyStr_Type, &description, &index_map, 
 			&filename, &mode, &dpflag, &cycle, &block_size))
     return NULL;
   if (index_map == Py_None)
@@ -1174,12 +1178,12 @@ get_spec(PyObject *universe, PyObject *spec,
       PyObject *item = PyObject_GetItem(what, PyInt_FromSsize_t(n));
       PyTrajectory_DataClassName *class = class_names;
       char *s;
-      if (!PyString_Check(item)) {
+      if (!PyStr_Check(item)) {
 	PyErr_SetString(PyExc_TypeError, "output item not a string");
 	Py_DECREF(item);
 	return -1;
       }
-      s = PyString_AsString(item);
+      s = PyStr_AsString(item);
       while (class->name != NULL) {
 	if (strcmp(s, class->name) == 0)
 	  output->what |= class->number;
@@ -1243,9 +1247,12 @@ get_spec(PyObject *universe, PyObject *spec,
 
   if (type == PySpec_Print) {
 
-    if (PyString_Check(output->destination)) {
-      PyObject *file =
-	PyFile_FromString(PyString_AsString(output->destination), "a");
+    if (PyStr_Check(output->destination)) {
+      PyObject *ioMod = PyImport_ImportModule("io");
+      PyObject *file = PyObject_CallMethod(ioMod, "open", "ss",
+          PyStr_AsString(output->destination), "a");
+      Py_DECREF(ioMod);
+
       if (file == NULL)
 	return -1;
       output->destination = file;
@@ -1264,8 +1271,8 @@ get_spec(PyObject *universe, PyObject *spec,
   if (type == PySpec_Function) {
 
     output->function = (trajectory_fn *)
-                       PyCObject_AsVoidPtr(PyTuple_GetItem(spec,
-							   (Py_ssize_t)4));
+                        PyCapsule_GetPointer(PyTuple_GetItem(spec,
+							   (Py_ssize_t)4), NULL);
     output->parameters = PyTuple_GetItem(spec, (Py_ssize_t)5);
     Py_INCREF(output->parameters);
     if (!output->function(data, output->parameters, -1,
@@ -1305,12 +1312,12 @@ PyTrajectory_OutputSpecification(PyObject *universe,
 	return NULL;
       }
       which = PyTuple_GetItem(spec, (Py_ssize_t)0);
-      if (!PyString_Check(which)) {
+      if (!PyStr_Check(which)) {
 	PyErr_SetString(PyExc_TypeError, "must be a string");
 	free(output);
 	return NULL;
       }
-      which_str = PyString_AsString(which);
+      which_str = PyStr_AsString(which);
       if (strcmp(which_str, "print") == 0)
 	type = PySpec_Print;
       else if (strcmp(which_str, "trajectory") == 0)
@@ -1749,7 +1756,7 @@ snapshot(PyObject *dummy, PyObject *args)
 
   dict_pos = 0;
   while (PyDict_Next(data_dict, &dict_pos, &data_key, &data_value)) {
-    name = PyString_AsString(data_key);
+    name = PyStr_AsString(data_key);
     if (strcmp(name+strlen(name)-7, "_energy") == 0) {
       char *s;
       strcpy(string_buffer, name);
@@ -1831,7 +1838,7 @@ readTrajectory(PyObject *dummy, PyObject *args)
   }
   i = 0; j = 0;
   while (PyDict_Next(input_vars, &i, &name, (PyObject **)&var)) {
-    char *n = PyString_AsString(name);
+    char *n = PyStr_AsString(name);
     if (var->unlimited && strcmp(n, "step") != 0) {
       if (var->nd == 3) { /* particle array */
 #if defined(NUMPY)
@@ -1867,7 +1874,7 @@ readTrajectory(PyObject *dummy, PyObject *args)
 	}
       }
       vars[j].name = n;
-      vars[j].unit = PyString_AsString(PyNetCDFVariable_GetAttribute(var,
+      vars[j].unit = PyStr_AsString(PyNetCDFVariable_GetAttribute(var,
 								     "units"));
       vars[j].text = "";
       vars[j].class = 0;
@@ -1894,26 +1901,31 @@ static PyMethodDef module_methods[] = {
   {NULL, NULL}		/* sentinel */
 };
 
+static struct PyModuleDef moduledef = {
+    PyModuleDef_HEAD_INIT,
+    .m_name = "MMTK_trajectory",
+    .m_size = -1,
+    .m_methods = module_methods,
+};
 
 /* Module initialization */
 
-DL_EXPORT(void)
-initMMTK_trajectory(void)
+MODULE_INIT_FUNC(MMTK_trajectory)
 {
   PyObject *module, *dict;
   PyObject *netcdf;
   static void *PyTrajectory_API[PyTrajectory_API_pointers];
 
   /* Patch object type */
-#ifdef EXTENDED_TYPES
+#if defined(EXTENDED_TYPES) || defined(IS_PY3)
   if (PyType_Ready(&PyTrajectory_Type) < 0)
-    return;
+    return NULL;
 #else
   PyTrajectory_Type.ob_type = &PyType_Type;
 #endif
 
   /* Create the module and add the type object */
-  module = Py_InitModule("MMTK_trajectory", module_methods);
+  module = PyModule_Create(&moduledef);
   dict = PyModule_GetDict(module);
   PyDict_SetItemString(dict, "trajectory_type",(PyObject *)&PyTrajectory_Type);
 
@@ -1927,8 +1939,8 @@ initMMTK_trajectory(void)
   if (module != NULL) {
     PyObject *module_dict = PyModule_GetDict(module);
     PyObject *c_api_object = PyDict_GetItemString(module_dict, "_C_API");
-    if (PyCObject_Check(c_api_object))
-      PyUniverse_API = (void **)PyCObject_AsVoidPtr(c_api_object);
+    if (PyCapsule_CheckExact(c_api_object))
+      PyUniverse_API = (void **) PyCapsule_GetPointer(c_api_object, NULL);
   }
 
   /* Initialize C API pointer array and store in module */
@@ -1941,7 +1953,7 @@ initMMTK_trajectory(void)
     (void *)&PyTrajectory_OutputFinish;
   PyTrajectory_API[PyTrajectory_Output_NUM] = (void *)&PyTrajectory_Output;
   PyDict_SetItemString(dict, "_C_API",
-		       PyCObject_FromVoidPtr((void *)PyTrajectory_API, NULL));
+		       PyCapsule_New((void *)PyTrajectory_API, NULL, NULL));
 
   /* Define maxint */
   PyDict_SetItemString(dict, "maxint", PyInt_FromLong(INT_MAX));
@@ -1956,10 +1968,12 @@ initMMTK_trajectory(void)
     PyObject *module_dict = PyModule_GetDict(netcdf);
     PyObject *c_api_object = PyDict_GetItemString(module_dict, "_C_API");
     fflush(stdout);
-    if (PyCObject_Check(c_api_object)) {
-      PyNetCDF_API = (void **)PyCObject_AsVoidPtr(c_api_object);
+    if (PyCapsule_CheckExact(c_api_object)) {
+      PyNetCDF_API = (void **) PyCapsule_GetPointer(c_api_object, NULL);
     }
   }
   else
     PyErr_Clear();
+
+  return module;
 }

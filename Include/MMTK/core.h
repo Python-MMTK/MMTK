@@ -7,6 +7,12 @@
 #ifndef MMTK_H
 
 #include "Python.h"
+#include "py3c/py3c.h"
+#include "py3c/capsulethunk.h"
+
+#ifndef Py_PROTO
+#define Py_PROTO(x) x
+#endif
 
 #include "MMTK/arrayobject.h"
 

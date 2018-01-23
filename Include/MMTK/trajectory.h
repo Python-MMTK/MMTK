@@ -9,12 +9,8 @@
 /* General include files */
 
 #include "MMTK/core.h"
-#include "Scientific/netcdfmodule.h"
-#ifdef USE_NETCDF_H_FROM_SCIENTIFIC
-# include "Scientific/netcdf.h"
-#else
-# include "netcdf.h"
-#endif
+#include "ScientificPython/netcdfmodule.h"
+#include "netcdf.h"
 #include <time.h>
 
 /* Unit names */
@@ -209,8 +205,8 @@ static void **PyTrajectory_API;
   if (module != NULL) { \
     PyObject *module_dict = PyModule_GetDict(module); \
     PyObject *c_api_object = PyDict_GetItemString(module_dict, "_C_API"); \
-    if (PyCObject_Check(c_api_object)) { \
-      PyTrajectory_API = (void **)PyCObject_AsVoidPtr(c_api_object); \
+    if (PyCapsule_CheckExact(c_api_object)) { \
+      PyTrajectory_API = (void **)PyCapsule_GetPointer(c_api_object, NULL); \
     } \
   } \
 }

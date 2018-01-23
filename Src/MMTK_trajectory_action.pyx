@@ -5,9 +5,9 @@
 
 import MMTK_trajectory
 
-cdef extern from "cobject.h":
-    object PyCObject_FromVoidPtr(void *pointer, void (*destruct)(void*))
-    void *PyCObject_AsVoidPtr(object)
+cdef extern from "Python.h":
+    object PyCapsule_New(void *pointer, const char *, void (*destruct)(void*))
+    void *PyCapsule_GetPointer(object, const char *)
 
 # The function run_action implements the C interface for trajectory action
 # functions, mapping it to the nicer OO interface of the Cython class.
@@ -46,7 +46,7 @@ cdef class TrajectoryAction:
         if last < 0:
             last += steps+1
         return ('function', first, last, self.skip,
-                PyCObject_FromVoidPtr(<void *>run_action, NULL), self)
+                PyCapsule_New(<void *>run_action, NULL, NULL), self)
 
     def cleanup(self):
         pass

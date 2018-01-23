@@ -688,13 +688,20 @@ static PyMethodDef deformation_methods[] = {
   {NULL, NULL}          /* sentinel */
 };
 
+static struct PyModuleDef moduledef = {
+    PyModuleDef_HEAD_INIT,
+    .m_name = "MMTK_deformation",
+    .m_size = -1,
+    .m_methods = deformation_methods,
+};
+
 /* Initialization function for the module */
 
-DL_EXPORT(void)
-initMMTK_deformation(void)
+MODULE_INIT_FUNC(MMTK_deformation)
 {
+  PyObject *m;
   /* Create the module and add the functions */
-  Py_InitModule("MMTK_deformation", deformation_methods);
+  m = PyModule_Create(&moduledef);
 
   /* Import the array module */
 #ifdef import_array
@@ -708,4 +715,6 @@ initMMTK_deformation(void)
   /* Check for errors */
   if (PyErr_Occurred())
     Py_FatalError("can't initialize module MMTK_deformation");
+
+  return m;
 }

@@ -1539,16 +1539,22 @@ static PyMethodDef dynamics_methods[] = {
   {NULL, NULL}		/* sentinel */
 };
 
+static struct PyModuleDef moduledef = {
+    PyModuleDef_HEAD_INIT,
+    .m_name = "MMTK_dynamics",
+    .m_size = -1,
+    .m_methods = dynamics_methods,
+};
+
 /* Initialization function for the module */
 
-DL_EXPORT(void)
-initMMTK_dynamics(void)
+MODULE_INIT_FUNC(MMTK_dynamics)
 {
   PyObject *m, *dict;
   PyObject *units;
 
   /* Create the module and add the functions */
-  m = Py_InitModule("MMTK_dynamics", dynamics_methods);
+  m = PyModule_Create(&moduledef);
   dict = PyModule_GetDict(m);
 
   /* Import the array module */
@@ -1572,17 +1578,19 @@ initMMTK_dynamics(void)
 
   /* Add addresses of C functions to module dictionary */
   PyDict_SetItemString(dict, "scaleVelocities",
-		       PyCObject_FromVoidPtr((void *)scaleVelocities, NULL));
+		       PyCapsule_New((void *)scaleVelocities, NULL, NULL));
   PyDict_SetItemString(dict, "heat",
-		       PyCObject_FromVoidPtr((void *)heat, NULL));
+		       PyCapsule_New((void *)heat, NULL, NULL));
   PyDict_SetItemString(dict, "resetBarostat",
-		       PyCObject_FromVoidPtr((void *)resetBarostat, NULL));
+		       PyCapsule_New((void *)resetBarostat, NULL, NULL));
   PyDict_SetItemString(dict, "removeTranslation",
-		       PyCObject_FromVoidPtr((void *)removeTranslation, NULL));
+		       PyCapsule_New((void *)removeTranslation, NULL, NULL));
   PyDict_SetItemString(dict, "removeRotation",
-		       PyCObject_FromVoidPtr((void *)removeRotation, NULL));
+		       PyCapsule_New((void *)removeRotation, NULL, NULL));
 
   /* Check for errors */
   if (PyErr_Occurred())
     Py_FatalError("can't initialize module MMTK_dynamics");
+
+  return m;
 }

@@ -646,18 +646,23 @@ static PyMethodDef surface_methods[] = {
   {NULL, NULL}		/* sentinel */
 };
 
+static struct PyModuleDef moduledef = {
+    PyModuleDef_HEAD_INIT,
+    .m_name = "MMTK_surface",
+    .m_size = -1,
+    .m_methods = surface_methods,
+};
+
 /* Initialization function for the module */
 
-DL_EXPORT(void)
-#ifdef IBMPC
-__declspec(dllexport)
-#endif
-initMMTK_surface(void)
+MODULE_INIT_FUNC(MMTK_surface)
 {
   /* Create the module and add the functions */
-  Py_InitModule("MMTK_surface", surface_methods);
+  PyObject *m = PyModule_Create(&moduledef);
 
   /* Check for errors */
   if (PyErr_Occurred())
     Py_FatalError("can't initialize module MMTK_surface");
+
+  return m;
 }

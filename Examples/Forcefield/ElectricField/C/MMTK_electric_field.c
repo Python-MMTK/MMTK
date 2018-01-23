@@ -138,18 +138,23 @@ static PyMethodDef functions[] = {
   {NULL, NULL}		/* sentinel */
 };
 
+static struct PyModuleDef moduledef = {
+  PyModuleDef_HEAD_INIT,
+  .m_name = "MMTK_electric_field",
+  .m_size = -1,
+  .m_methods = functions,
+};
+
 
 /* The initialization function for the module. This is the only function
    that must be publicly visible, everything else should be declared
    static to prevent name clashes with other modules. The name of this
    function must be "init" followed by the module name. */
-DL_EXPORT(void)
-initMMTK_electric_field(void)
+MODULE_INIT_FUNC(MMTK_electric_field)
 {
   PyObject *m;
-
   /* Create the module and add the functions. */
-  m = Py_InitModule("MMTK_electric_field", functions);
+  m = PyModule_Create(&moduledef)
 
   /* Import the array module. */
 #ifdef import_array
@@ -163,4 +168,6 @@ initMMTK_electric_field(void)
   /* Check for errors. */
   if (PyErr_Occurred())
     Py_FatalError("can't initialize module MMTK_electric_field");
+
+  return m;
 }

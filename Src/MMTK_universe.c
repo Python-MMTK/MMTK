@@ -733,7 +733,7 @@ static struct PyMethodDef universe_methods[] = {
 static PyObject *
 universe_getattr(PyUniverseSpecObject *self, char *name)
 {
-  return Py_FindMethod(universe_methods, (PyObject *)self, name);
+  return PyObject_GenericGetAttr((PyObject *)self, name);
 }
 
 /* Type object */
@@ -925,25 +925,31 @@ static PyMethodDef universe_module_methods[] = {
   {NULL, NULL}		/* sentinel */
 };
 
+static struct PyModuleDef moduledef = {
+    PyModuleDef_HEAD_INIT,
+    .m_name = "MMTK_universe",
+    .m_size = -1,
+    .m_methods = universe_module_methods,
+};
+
 /*
  * Initialization function for the module
  */
-DL_EXPORT(void)
-initMMTK_universe(void)
+MODULE_INIT_FUNC(MMTK_universe)
 {
   PyObject *m, *d;
   static void *PyUniverse_API[PyUniverse_API_pointers];
 
   /* Patch object type */
-#ifdef EXTENDED_TYPES
+#if defined(EXTENDED_TYPES) || defined(IS_PY3)
   if (PyType_Ready(&PyUniverseSpec_Type) < 0)
-    return;
+    return NULL;
 #else
   PyUniverseSpec_Type.ob_type = &PyType_Type;
 #endif
 
   /* Create the module */
-  m = Py_InitModule("MMTK_universe", universe_module_methods);
+  m = PyModule_Create(&moduledef);
   d = PyModule_GetDict(m);
 
   /* Import the array module */
@@ -956,43 +962,45 @@ initMMTK_universe(void)
   PyUniverse_API[PyUniverseSpec_StateLock_NUM] =
                                     (void *)&PyUniverseSpec_StateLock;
   PyDict_SetItemString(d, "_C_API",
-		       PyCObject_FromVoidPtr((void *)PyUniverse_API, NULL));
+		       PyCapsule_New((void *)PyUniverse_API, NULL, NULL));
 
   /* Add function pointer objects */
   PyDict_SetItemString(d, "infinite_universe_distance_function",
-		       PyCObject_FromVoidPtr((void *) distance_vector, NULL));
+		       PyCapsule_New((void *) distance_vector, NULL, NULL));
   PyDict_SetItemString(d, "infinite_universe_correction_function",
-		       PyCObject_FromVoidPtr((void *) no_correction, NULL));
+		       PyCapsule_New((void *) no_correction, NULL, NULL));
   PyDict_SetItemString(d, "infinite_universe_volume_function",
-		       PyCObject_FromVoidPtr((void *) no_volume, NULL));
+		       PyCapsule_New((void *) no_volume, NULL, NULL));
   PyDict_SetItemString(d, "orthorhombic_universe_distance_function",
-		       PyCObject_FromVoidPtr((void *)
+		       PyCapsule_New((void *)
 					     orthorhombic_distance_vector,
-					     NULL));
+					     NULL, NULL));
   PyDict_SetItemString(d, "orthorhombic_universe_correction_function",
-		       PyCObject_FromVoidPtr((void *) orthorhombic_correction,
-					     NULL));
+		       PyCapsule_New((void *) orthorhombic_correction,
+					     NULL, NULL));
   PyDict_SetItemString(d, "orthorhombic_universe_volume_function",
-		       PyCObject_FromVoidPtr((void *) orthorhombic_volume,
-					     NULL));
+		       PyCapsule_New((void *) orthorhombic_volume,
+					     NULL, NULL));
   PyDict_SetItemString(d, "orthorhombic_universe_box_transformation",
-		       PyCObject_FromVoidPtr((void *) orthorhombic_box,
-					     NULL));
+		       PyCapsule_New((void *) orthorhombic_box,
+					     NULL, NULL));
   PyDict_SetItemString(d, "parallelepipedic_universe_distance_function",
-		       PyCObject_FromVoidPtr((void *)
+		       PyCapsule_New((void *)
 					     parallelepipedic_distance_vector,
-					     NULL));
+					     NULL, NULL));
   PyDict_SetItemString(d, "parallelepipedic_universe_correction_function",
-		       PyCObject_FromVoidPtr((void *) parallelepipedic_correction,
-					     NULL));
+		       PyCapsule_New((void *) parallelepipedic_correction,
+					     NULL, NULL));
   PyDict_SetItemString(d, "parallelepipedic_universe_volume_function",
-		       PyCObject_FromVoidPtr((void *) parallelepipedic_volume,
-					     NULL));
+		       PyCapsule_New((void *) parallelepipedic_volume,
+					     NULL, NULL));
   PyDict_SetItemString(d, "parallelepipedic_universe_box_transformation",
-		       PyCObject_FromVoidPtr((void *) parallelepipedic_box,
-					     NULL));
+		       PyCapsule_New((void *) parallelepipedic_box,
+					     NULL, NULL));
 
   /* Check for errors */
   if (PyErr_Occurred())
     Py_FatalError("can't initialize module MMTK_universe");
+
+  return m;
 }

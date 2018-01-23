@@ -35,7 +35,7 @@ distance_fn *parallelepipedic_distance_vector_pointer;
 static PyObject *PyExc_MPIError;
 #endif
 
-staticforward ff_eval_function evaluator;
+static ff_eval_function evaluator;
 
 
 /*
@@ -204,11 +204,11 @@ PyFFEnergyTerm_init(PyObject *self_po, PyObject *args, PyObject *kw)
   }
   for (i = 0; i < self->nterms; i++) {
     PyObject *name = PyTuple_GetItem(term_names, (Py_ssize_t)i);
-    if (!PyString_Check(name)) {
+    if (!PyStr_Check(name)) {
       PyErr_SetString(PyExc_TypeError, "term names must be strings");
       return -1;
     }
-    self->term_names[i] = allocstring(PyString_AsString(name));
+    self->term_names[i] = allocstring(PyStr_AsString(name));
     if (self->term_names[i] == NULL) {
       PyErr_NoMemory();
       return -1;
@@ -255,7 +255,7 @@ energyterm_dealloc(PyFFEnergyTermObject *self)
     Py_XDECREF(self->data[i]);
   if (self->scratch != NULL)
     free(self->scratch);
-  self->ob_type->tp_free((PyObject *)self);
+  Py_TYPE(self)->tp_free((PyObject *)self);
 }
 
 /* Add nonbonded term to NonbondedListTerm */
@@ -296,14 +296,14 @@ static PyObject *
 energyterm_getattr(PyFFEnergyTermObject *self, char *name)
 {
   if (strcmp(name, "name") == 0) {
-    return PyString_FromString(self->evaluator_name);
+    return PyStr_FromString(self->evaluator_name);
   }
   else if (strcmp(name, "term_names") == 0) {
     PyObject *ret = PyTuple_New((Py_ssize_t)self->nterms);
     int i;
     for (i = 0; i < self->nterms; i++)
       PyTuple_SetItem(ret, (Py_ssize_t)i,
-		      PyString_FromString(self->term_names[i]));
+		      PyStr_FromString(self->term_names[i]));
     return ret;
   }
   else if (strcmp(name, "info") == 0) {
@@ -315,7 +315,7 @@ energyterm_getattr(PyFFEnergyTermObject *self, char *name)
     return self->user_info;
   }
   else
-    return Py_FindMethod(energyterm_methods, (PyObject *)self, name);
+    return PyObject_GenericGetAttr((PyObject *)self, name);
 }
 
 static int
@@ -633,14 +633,14 @@ evaluator_call(PyFFEvaluatorObject *self, PyObject *args)
     PyObject *fnptr = PyObject_CallMethod(gradients, "accessFunction", NULL);
     if (fnptr == NULL)
       return NULL;
-    gf = (gradient_function *)PyCObject_AsVoidPtr(fnptr);
+    gf = (gradient_function *)PyCapsule_GetPointer(fnptr, NULL);
   }
   if (force_constants != NULL && !PyArray_Check(force_constants)) {
     PyObject *fnptr = PyObject_CallMethod(force_constants,
 					  "accessFunction", NULL);
     if (fnptr == NULL)
       return NULL;
-    fcf = (fc_function *)PyCObject_AsVoidPtr(fnptr);
+    fcf = (fc_function *)PyCapsule_GetPointer(fnptr, NULL);
   }
   energy.gradients = gradients;
   energy.gradient_fn = gf;
@@ -976,7 +976,7 @@ evaluator_getattr(PyObject *self, char *name)
     Py_INCREF(ev->energy_terms_array);
     return (PyObject *)ev->energy_terms_array;
   }
-  return Py_FindMethod(evaluator_methods, self, name);
+  return PyObject_GenericGetAttr(self, name);
 }
 
 static Py_ssize_t
@@ -1264,7 +1264,7 @@ static struct PyMethodDef nblist_methods[] = {
 static PyObject *
 nblist_getattr(PyNonbondedListObject *self, char *name)
 {
-  return Py_FindMethod(nblist_methods, (PyObject *)self, name);
+  return PyObject_GenericGetAttr((PyObject *)self, name);
 }
 
 /* Type object */
@@ -1847,14 +1847,16 @@ static PyMethodDef forcefield_methods[] = {
   {NULL, NULL}		/* sentinel */
 };
 
+static struct PyModuleDef moduledef = {
+    PyModuleDef_HEAD_INIT,
+    .m_name = "MMTK_forcefield",
+    .m_size = -1,
+    .m_methods = forcefield_methods,
+};
 
 /* Initialization function for the module */
 
-#ifndef PyMODINIT_FUNC  /* declarations for DLL import/export */
-#define PyMODINIT_FUNC void
-#endif
-PyMODINIT_FUNC
-initMMTK_forcefield(void)
+MODULE_INIT_FUNC(MMTK_forcefield)
 {
   PyObject *m, *d, *module;
 #ifdef WITH_MPI
@@ -1863,7 +1865,7 @@ initMMTK_forcefield(void)
   static void *PyFF_API[PyFF_API_pointers];
 
   /* Create the module and add the functions */
-  m = Py_InitModule("MMTK_forcefield", forcefield_methods);
+  m = PyModule_Create(&moduledef);
   
   /* Import the array and MPI modules */
 #ifdef import_array
@@ -1896,15 +1898,15 @@ initMMTK_forcefield(void)
   PyFF_API[PyNonbondedListUpdate_NUM] = (void *)&PyNonbondedListUpdate;
   PyFF_API[PyNonbondedListIterate_NUM] = (void *)&PyNonbondedListIterate;
 
-#ifdef EXTENDED_TYPES
+#if defined(EXTENDED_TYPES) || defined(IS_PY3)
   if (PyType_Ready(&PyFFEnergyTerm_Type) < 0)
-    return;
+    return NULL;
   if (PyType_Ready(&PyFFEvaluator_Type) < 0)
-    return;
+    return NULL;
   if (PyType_Ready(&PyNonbondedList_Type) < 0)
-    return;
+    return NULL;
   if (PyType_Ready(&PySparseFC_Type) < 0)
-    return;
+    return NULL;
 #else
   PyFFEnergyTerm_Type.ob_type = &PyType_Type;
   PyFFEvaluator_Type.ob_type = &PyType_Type;
@@ -1914,7 +1916,7 @@ initMMTK_forcefield(void)
 
   d = PyModule_GetDict(m);
   PyDict_SetItemString(d, "_C_API",
-		       PyCObject_FromVoidPtr((void *)PyFF_API, NULL));
+		       PyCapsule_New((void *)PyFF_API, NULL, NULL));
   PyDict_SetItemString(d, "EnergyTerm", (PyObject *)&PyFFEnergyTerm_Type);
   PyDict_SetItemString(d, "EnergyEvaluator",
 		       (PyObject *)&PyFFEvaluator_Type);
@@ -1934,22 +1936,24 @@ initMMTK_forcefield(void)
     PyObject *module_dict = PyModule_GetDict(module);
     PyObject *c_api_object = PyDict_GetItemString(module_dict, "_C_API");
     PyObject *fn;
-    if (PyCObject_Check(c_api_object))
-      PyUniverse_API = (void **)PyCObject_AsVoidPtr(c_api_object);
+    if (PyCapsule_CheckExact(c_api_object))
+      PyUniverse_API = (void **)PyCapsule_GetPointer(c_api_object, NULL);
     fn = PyDict_GetItemString(module_dict,
 			      "infinite_universe_distance_function");
-    distance_vector_pointer = (distance_fn *)PyCObject_AsVoidPtr(fn);
+    distance_vector_pointer = (distance_fn *)PyCapsule_GetPointer(fn, NULL);
     fn = PyDict_GetItemString(module_dict,
 			      "orthorhombic_universe_distance_function");
     orthorhombic_distance_vector_pointer =
-                        (distance_fn *)PyCObject_AsVoidPtr(fn);
+                        (distance_fn *)PyCapsule_GetPointer(fn, NULL);
     fn = PyDict_GetItemString(module_dict,
 			      "parallelepipedic_universe_distance_function");
     parallelepipedic_distance_vector_pointer =
-                        (distance_fn *)PyCObject_AsVoidPtr(fn);
+                        (distance_fn *)PyCapsule_GetPointer(fn, NULL);
   }
 
   /* Check for errors */
   if (PyErr_Occurred())
     Py_FatalError("can't initialize module MMTK_forcefield");
+
+  return m;
 }

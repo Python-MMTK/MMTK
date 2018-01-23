@@ -16,7 +16,7 @@
 /*
  * Include erfc code, unless user wants to use an erfc from libm.
  */
-#ifndef LIBM_HAS_ERFC
+#if !defined(LIBM_HAS_ERFC) && !defined(_MSC_VER)
 #include "polevl.c"
 #include "ndtr.c"
 #endif
