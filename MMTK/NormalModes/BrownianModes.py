@@ -23,7 +23,7 @@ class BrownianMode(Core.Mode):
     """
     Single Brownian normal mode
 
-    Mode objects are created by indexing a :class:`~MMTK.NormalModes.BrownianModes.BrownianModes` object.
+    Mode objects are created by indexing a :class:~MMTK.NormalModes.BrownianModes.BrownianModes object.
     They contain the atomic displacements corresponding to a single
     mode. In addition, the inverse of the relaxation time corresponding
     to the mode is stored in the attribute "inv_relaxation_time".
@@ -37,9 +37,9 @@ class BrownianMode(Core.Mode):
         Core.Mode.__init__(self, universe, n, mode)
 
     def __str__(self):
-        return 'Mode ' + `self.number` + \
+        return 'Mode ' + self.number + \
                ' with inverse relaxation time ' \
-               + `self.inv_relaxation_time`
+               + self.inv_relaxation_time
 
     __repr__ = __str__
 
@@ -57,7 +57,7 @@ class BrownianModes(Core.NormalModes):
     of the universe must correspond to a local minimum of the potential
     energy.
 
-    Individual modes (see :class:`~MMTK.NormalModes.BrownianModes.BrownianMode`)
+    Individual modes (see :class:~MMTK.NormalModes.BrownianModes.BrownianMode)
     can be extracted by indexing with an integer. Looping over the modes
     is possible as well.
 
@@ -70,7 +70,7 @@ class BrownianModes(Core.NormalModes):
     energy.
 
     A BrownianModes object behaves like a sequence of modes.
-    Individual modes (see :class:`~MMTK.NormalModes.BrownianMode`)
+    Individual modes (see :class:~MMTK.NormalModes.BrownianMode)
     can be extracted by indexing with an integer. Looping over the modes
     is possible as well.
 
@@ -84,11 +84,11 @@ class BrownianModes(Core.NormalModes):
         :param universe: the system for which the normal modes are calculated;
                          it must have a force field which provides the second
                          derivatives of the potential energy
-        :type universe: :class:`~MMTK.Universe.Universe`
+        :type universe: :class:~MMTK.Universe.Universe
         :param friction: the friction coefficient for each particle.
                          Note: The friction coefficients are not mass-weighted,
                          i.e. they have the dimension of an inverse time.
-        :type friction: :class:`~MMTK.ParticleProperties.ParticleScalar`
+        :type friction: :class:~MMTK.ParticleProperties.ParticleScalar
         :param temperature: the temperature for which the amplitudes of the
                             atomic displacement vectors are calculated. A
                             value of None can be specified to have no scaling
@@ -99,7 +99,7 @@ class BrownianModes(Core.NormalModes):
                          are calculated (or, more precisely, a set of vectors
                          spanning the subspace; it does not have to be
                          orthogonal). This can either be a sequence of
-                         :class:`~MMTK.ParticleProperties.ParticleVector` objects
+                         :class:~MMTK.ParticleProperties.ParticleVector objects
                          or a tuple of two such sequences. In the second case,
                          the subspace is defined by the space spanned by the
                          second set of vectors projected on the complement of
@@ -161,7 +161,7 @@ class BrownianModes(Core.NormalModes):
         :param item: the index of a normal mode
         :type item: int
         :returns: the unscaled mode vector
-        :rtype: :class:`~MMTK.NormalModes.BrownianModes.BrownianMode`
+        :rtype: :class:~MMTK.NormalModes.BrownianModes.BrownianMode
         """
         index = self.sort_index[item]
         return BrownianMode(self.universe, item,
@@ -182,10 +182,10 @@ class BrownianModes(Core.NormalModes):
         """
         :param subset: the subset of the universe used in the calculation
                        (default: the whole universe)
-        :type subset: :class:`~MMTK.Collections.GroupOfAtoms`
+        :type subset: :class:~MMTK.Collections.GroupOfAtoms
         :param weights: the weight to be given to each atom in the average
                         (default: atomic masses)
-        :type weights: :class:`~MMTK.ParticleProperties.ParticleScalar`
+        :type weights: :class:~MMTK.ParticleProperties.ParticleScalar
         :param time_range: the time values at which the mean-square
                            displacement is evaluated, specified as a
                            range tuple (first, last, step).
@@ -232,10 +232,10 @@ class BrownianModes(Core.NormalModes):
         :type q_range: tuple
         :param subset: the subset of the universe used in the calculation
                        (default: the whole universe)
-        :type subset: :class:`~MMTK.Collections.GroupOfAtoms`
+        :type subset: :class:~MMTK.Collections.GroupOfAtoms
         :param weights: the weight to be given to each atom in the average
                         (default: coherent scattering lengths)
-        :type weights: :class:`~MMTK.ParticleProperties.ParticleScalar`
+        :type weights: :class:~MMTK.ParticleProperties.ParticleScalar
         :param random_vectors: the number of random direction vectors
                                used in the orientational average
         :type random_vectors: int
@@ -298,10 +298,10 @@ class BrownianModes(Core.NormalModes):
         :type time_range: tuple
         :param subset: the subset of the universe used in the calculation
                        (default: the whole universe)
-        :type subset: :class:`~MMTK.Collections.GroupOfAtoms`
+        :type subset: :class:~MMTK.Collections.GroupOfAtoms
         :param weights: the weight to be given to each atom in the average
                         (default: coherent scattering lengths)
-        :type weights: :class:`~MMTK.ParticleProperties.ParticleScalar`
+        :type weights: :class:~MMTK.ParticleProperties.ParticleScalar
         :param random_vectors: the number of random direction vectors
                                used in the orientational average
         :type random_vectors: int
@@ -371,7 +371,7 @@ class BrownianModes(Core.NormalModes):
         :type time_range: tuple
         :param subset: the subset of the universe used in the calculation
                        (default: the whole universe)
-        :type subset: :class:`~MMTK.Collections.GroupOfAtoms`
+        :type subset: :class:~MMTK.Collections.GroupOfAtoms
         :param random_vectors: the number of random direction vectors
                                used in the orientational average
         :type random_vectors: int
@@ -432,10 +432,10 @@ class BrownianModes(Core.NormalModes):
         :type q_range: tuple
         :param subset: the subset of the universe used in the calculation
                        (default: the whole universe)
-        :type subset: :class:`~MMTK.Collections.GroupOfAtoms`
+        :type subset: :class:~MMTK.Collections.GroupOfAtoms
         :param weights: the weight to be given to each atom in the average
                         (default: incoherent scattering lengths)
-        :type weights: :class:`~MMTK.ParticleProperties.ParticleScalar`
+        :type weights: :class:~MMTK.ParticleProperties.ParticleScalar
         :param random_vectors: the number of random direction vectors
                                used in the orientational average
         :type random_vectors: int

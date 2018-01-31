@@ -196,7 +196,7 @@ def buildAllAtomModel(pymol_model):
                     m.setPosition(residue[0][1])
                 all.addObject(m)
             else:
-                print "Skipping unknown residue", res_name
+                print("Skipping unknown residue" + res_name)
         if amino_acids:
             chain = Proteins.PeptideChain([item[0] for item in amino_acids])
             for residue, res_data in zip(chain, amino_acids):
@@ -215,9 +215,9 @@ def buildAllAtomModel(pymol_model):
                     try:
                         atom = atom_list[pdbmap[atom_name].number]
                     except KeyError:
-                        print "No atom named " + atom_name
+                        print("No atom named " + atom_name)
                     atom.setPosition(atom_pos)
-                    print atom_name, atom.name
+                    print(atom_name + atom.name)
             chain.findHydrogenPositions()
             peptide_chains.append(chain)
     if peptide_chains:

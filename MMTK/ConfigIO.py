@@ -8,7 +8,7 @@ I/O of molecular configurations
 
 Input: Z-Matrix and Cartesian
 Output: VRML
-PDB files are handled in :class:`~MMTK.PDB`.
+PDB files are handled in :class:~MMTK.PDB.
 """
 
 __docformat__ = 'restructuredtext'

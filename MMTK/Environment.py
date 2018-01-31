@@ -27,7 +27,7 @@ class EnvironmentObject(object):
 
     def description(self):
         return "o('Environment." + self.__class__.__name__ + \
-               `tuple(self.parameters)` + "')"
+               tuple(self.parameters) + "')"
 
 # Type check
 

@@ -73,7 +73,7 @@ _category = {
 def categorizeVariables(variable_names):
     categories = DictWithDefault([])
     for name in variable_names:
-        words = string.split(name, '_')
+        words = (name.split('_'))
         try:
             c = _category[words[-1]]
         except KeyError:
@@ -175,8 +175,8 @@ class PlotViewer(PlotWindow):
         box.pack(side=TOP, fill=BOTH, expand=YES)
         frame = Frame(box, background='grey')
         frame.pack(side=TOP, fill=X, expand=NO)
-        Label(frame, text=string.capitalize(string.join(
-                          string.split(name , '_'), ' ')),
+        Label(frame, text=string.capitalize(' '.join(
+              name.split('_')),
               background='grey').pack(side=LEFT)
         if data_range is None:
             min = Numeric.minimum.reduce(data[:,1])
@@ -606,7 +606,7 @@ class TrajectoryViewer(Tkwindow):
             text.append('')
         natoms = self.inspector.numberOfAtoms()
         nsteps = self.inspector.numberOfSteps()
-        text.append(`natoms` + ' atoms, ' + `nsteps` + ' steps')
+        text.append(natoms + ' atoms, ' + nsteps + ' steps')
         text.append('')
         Label(self, text=string.join(text, '\n'), justify=LEFT).pack(side=TOP)
         animation = Frame(self)
@@ -621,8 +621,8 @@ class TrajectoryViewer(Tkwindow):
         self.skip_step = Entry(animation)
         self.skip_step.grid(row=2, column=1)
         self.first_step.insert(0, '1')
-        self.last_step.insert(0, `nsteps`)
-        self.skip_step.insert(0, `max(1, nsteps/100)`)
+        self.last_step.insert(0, nsteps)
+        self.skip_step.insert(0, max(1, nsteps/100))
         button_box = Frame(animation)
         button_box.grid(column=3, row=0, rowspan=3)
         Button(button_box, text = 'Start Animation',
@@ -726,7 +726,7 @@ class TrajectoryViewer(Tkwindow):
     def _openRemoteFiles(self):
         items = self.remote.curselection()
         try:
-            items = map(string.atoi, items)
+            items = map(int, items)
         except ValueError: pass
         files = []
         for item in items:
@@ -755,11 +755,11 @@ class TrajectoryViewer(Tkwindow):
             self.selection = (first, last)
         skip = max(1, (last-first)/100)
         self.first_step.delete(0, END)
-        self.first_step.insert(0, `first`)
+        self.first_step.insert(0, first)
         self.last_step.delete(0, END)
-        self.last_step.insert(0, `last`)
+        self.last_step.insert(0, last)
         self.skip_step.delete(0, END)
-        self.skip_step.insert(0, `skip`)
+        self.skip_step.insert(0, skip)
         for plot_canvas in self.plotlist:
             if range is None:
                 plot_canvas.select(None)
@@ -794,9 +794,9 @@ class TrajectoryViewer(Tkwindow):
             self.status.clear()
 
     def _animation(self):
-        first = string.atoi(self.first_step.get())-1
-        last = string.atoi(self.last_step.get())
-        skip = string.atoi(self.skip_step.get())
+        first = int(self.first_step.get())-1
+        last = int(self.last_step.get())
+        skip = int(self.skip_step.get())
         self._makeUniverse()
         from MMTK.Visualization import viewSequence
         viewSequence(self.universe,
@@ -804,9 +804,9 @@ class TrajectoryViewer(Tkwindow):
                                           range(first, last, skip)))
 
     def _export(self):
-        first = string.atoi(self.first_step.get())-1
-        last = string.atoi(self.last_step.get())
-        skip = string.atoi(self.skip_step.get())
+        first = int(self.first_step.get())-1
+        last = int(self.last_step.get())
+        skip = int(self.skip_step.get())
         self._makeUniverse()
         numbers = range(first, last, skip)
         conf = ConfigurationFactory(self.universe, self.inspector, numbers)

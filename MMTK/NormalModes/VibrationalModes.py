@@ -23,7 +23,7 @@ class VibrationalMode(Core.Mode):
     Single vibrational normal mode
 
     Mode objects are created by indexing a 
-    :class:`~MMTK.NormalModes.VibrationalModes.VibrationalModes` object.
+    :class:~MMTK.NormalModes.VibrationalModes.VibrationalModes object.
     They contain the atomic displacements corresponding to a
     single mode. In addition, the frequency corresponding to the mode
     is stored in the attribute "frequency".
@@ -37,7 +37,7 @@ class VibrationalMode(Core.Mode):
         Core.Mode.__init__(self, universe, n, mode)
 
     def __str__(self):
-        return 'Mode ' + `self.number` + ' with frequency ' + `self.frequency`
+        return 'Mode ' + self.number + ' with frequency ' + self.frequency
 
     __repr__ = __str__
 
@@ -60,7 +60,7 @@ class VibrationalModes(Core.NormalModes):
     of the universe must correspond to a local minimum of the potential
     energy.
 
-    Individual modes (see :class:`~MMTK.NormalModes.VibrationalModes.VibrationalMode`)
+    Individual modes (see :class:~MMTK.NormalModes.VibrationalModes.VibrationalMode)
     can be extracted by indexing with an integer. Looping over the modes
     is possible as well.
 
@@ -74,7 +74,7 @@ class VibrationalModes(Core.NormalModes):
         :param universe: the system for which the normal modes are calculated;
                          it must have a force field which provides the second
                          derivatives of the potential energy
-        :type universe: :class:`~MMTK.Universe.Universe`
+        :type universe: :class:~MMTK.Universe.Universe
         :param temperature: the temperature for which the amplitudes of the
                             atomic displacement vectors are calculated. A
                             value of None can be specified to have no scaling
@@ -85,7 +85,7 @@ class VibrationalModes(Core.NormalModes):
                          are calculated (or, more precisely, a set of vectors
                          spanning the subspace; it does not have to be
                          orthogonal). This can either be a sequence of
-                         :class:`~MMTK.ParticleProperties.ParticleVector` objects
+                         :class:~MMTK.ParticleProperties.ParticleVector objects
                          or a tuple of two such sequences. In the second case,
                          the subspace is defined by the space spanned by the
                          second set of vectors projected on the complement of
@@ -174,7 +174,7 @@ class VibrationalModes(Core.NormalModes):
         :param item: the index of a normal mode
         :type item: int
         :returns: the unscaled mode vector
-        :rtype: :class:`~MMTK.NormalModes.VibrationalModes.VibrationalMode`
+        :rtype: :class:~MMTK.NormalModes.VibrationalModes.VibrationalMode
         """
         index = self.sort_index[item]
         f = self.frequencies[index]
@@ -213,10 +213,10 @@ class VibrationalModes(Core.NormalModes):
         """
         :param subset: the subset of the universe used in the calculation
                        (default: the whole universe)
-        :type subset: :class:`~MMTK.Collections.GroupOfAtoms`
+        :type subset: :class:~MMTK.Collections.GroupOfAtoms
         :param weights: the weight to be given to each atom in the average
                         (default: atomic masses)
-        :type weights: :class:`~MMTK.ParticleProperties.ParticleScalar`
+        :type weights: :class:~MMTK.ParticleProperties.ParticleScalar
         :param time_range: the time values at which the mean-square
                            displacement is evaluated, specified as a
                            range tuple (first, last, step).
@@ -268,10 +268,10 @@ class VibrationalModes(Core.NormalModes):
         :type q_range: tuple
         :param subset: the subset of the universe used in the calculation
                        (default: the whole universe)
-        :type subset: :class:`~MMTK.Collections.GroupOfAtoms`
+        :type subset: :class:~MMTK.Collections.GroupOfAtoms
         :param weights: the weight to be given to each atom in the average
                         (default: incoherent scattering lengths)
-        :type weights: :class:`~MMTK.ParticleProperties.ParticleScalar`
+        :type weights: :class:~MMTK.ParticleProperties.ParticleScalar
         :param random_vectors: the number of random direction vectors
                                used in the orientational average
         :type random_vectors: int
@@ -328,10 +328,10 @@ class VibrationalModes(Core.NormalModes):
         :type time_range: tuple
         :param subset: the subset of the universe used in the calculation
                        (default: the whole universe)
-        :type subset: :class:`~MMTK.Collections.GroupOfAtoms`
+        :type subset: :class:~MMTK.Collections.GroupOfAtoms
         :param weights: the weight to be given to each atom in the average
                         (default: incoherent scattering lengths)
-        :type weights: :class:`~MMTK.ParticleProperties.ParticleScalar`
+        :type weights: :class:~MMTK.ParticleProperties.ParticleScalar
         :param tau: the relaxation time of an exponential damping factor
                     (default: no damping)
         :type tau: float

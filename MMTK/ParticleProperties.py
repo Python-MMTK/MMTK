@@ -176,7 +176,7 @@ class ParticleScalar(ParticleProperty):
     def __init__(self, universe, data_array=None):
         """
         :param universe: the universe for which the values are defined
-        :type universe: :class:`~MMTK.Universe.Universe`
+        :type universe: :class:~MMTK.Universe.Universe
         :param data_array: the data array containing the values for each
                            particle. If None, a new array containing
                            zeros is created and used. Otherwise, the
@@ -241,10 +241,10 @@ class ParticleVector(ParticleProperty):
     Vector property defined for each particle
 
     ParticleVector objects can be added to each other and
-    multiplied with scalars or :class:`~MMTK.ParticleProperties.ParticleScalar` objects; all
+    multiplied with scalars or :class:~MMTK.ParticleProperties.ParticleScalar objects; all
     of these operations result in another ParticleVector
     object. Multiplication with a vector or another ParticleVector object
-    yields a :class:`~MMTK.ParticleProperties.ParticleScalar` object containing the dot products
+    yields a :class:~MMTK.ParticleProperties.ParticleScalar object containing the dot products
     for each particle. Multiplications that treat ParticleVectors
     as vectors in a 3N-dimensional space are implemented as methods.
     """
@@ -252,7 +252,7 @@ class ParticleVector(ParticleProperty):
     def __init__(self, universe, data_array=None):
         """
         :param universe: the universe for which the values are defined
-        :type universe: :class:`~MMTK.Universe.Universe`
+        :type universe: :class:~MMTK.Universe.Universe
         :param data_array: the data array containing the values for each
                            particle. If None, a new array containing
                            zeros is created and used. Otherwise, the
@@ -310,7 +310,7 @@ class ParticleVector(ParticleProperty):
     def length(self):
         """
         :returns: the length (norm) of the vector for each particle
-        :rtype: :class:`~MMTK.ParticleProperties.ParticleScalar`
+        :rtype: :class:~MMTK.ParticleProperties.ParticleScalar
         """
         return ParticleScalar(self.universe,
                               N.sqrt(N.add.reduce(self.array**2,
@@ -335,7 +335,7 @@ class ParticleVector(ParticleProperty):
     def dotProduct(self, other):
         """
         :param other: another ParticleVector
-        :type other: :class:`~MMTK.ParticleProperties.ParticleVector`
+        :type other: :class:~MMTK.ParticleProperties.ParticleVector
         :returns: the dot product with other, treating both operands
                   as 3N-dimensional vectors.
         """
@@ -361,7 +361,7 @@ class ParticleVector(ParticleProperty):
     def massWeightedDotProduct(self, other):
         """
         :param other: another ParticleVector
-        :type other: :class:`~MMTK.ParticleProperties.ParticleVector`
+        :type other: :class:~MMTK.ParticleProperties.ParticleVector
         :returns: the mass-weighted dot product with other treating both
                   operands as 3N-dimensional vectors
         :rtype: float
@@ -375,9 +375,9 @@ class ParticleVector(ParticleProperty):
     def dyadicProduct(self, other):
         """
         :param other: another ParticleVector
-        :type other: :class:`~MMTK.ParticleProperties.ParticleVector`
+        :type other: :class:~MMTK.ParticleProperties.ParticleVector
         :returns: the dyadic product with other
-        :rtype: :class:`~MMTK.ParticleProperties.ParticleTensor`
+        :rtype: :class:~MMTK.ParticleProperties.ParticleTensor
         """
         if self.universe != other.universe:
             raise ValueError('Variables are for different universes')
@@ -404,7 +404,7 @@ class Configuration(ParticleVector):
     def __init__(self, universe, data_array=None, cell = None):
         """
         :param universe: the universe for which the values are defined
-        :type universe: :class:`~MMTK.Universe.Universe`
+        :type universe: :class:~MMTK.Universe.Universe
         :param data_array: the data array containing the values for each
                            particle. If None, a new array containing
                            zeros is created and used. Otherwise, the
@@ -456,14 +456,14 @@ class ParticleTensor(ParticleProperty):
     Rank-2 tensor property defined for each particle
 
     ParticleTensor objects can be added to each other and
-    multiplied with scalars or :class:`~MMTK.ParticleProperties.ParticleScalar` objects; all
+    multiplied with scalars or :class:~MMTK.ParticleProperties.ParticleScalar objects; all
     of these operations result in another ParticleTensor object.
     """
 
     def __init__(self, universe, data_array=None):
         """
         :param universe: the universe for which the values are defined
-        :type universe: :class:`~MMTK.Universe.Universe`
+        :type universe: :class:~MMTK.Universe.Universe
         :param data_array: the data array containing the values for each
                            particle. If None, a new array containing
                            zeros is created and used. Otherwise, the
@@ -530,7 +530,7 @@ class SymmetricPairTensor(ParticleProperty):
     def __init__(self, universe, data_array=None):
         """
         :param universe: the universe for which the values are defined
-        :type universe: :class:`~MMTK.Universe.Universe`
+        :type universe: :class:~MMTK.Universe.Universe
         :param data_array: the data array containing the values for each
                            particle. If None, a new array containing
                            zeros is created and used. Otherwise, the
@@ -609,7 +609,7 @@ SymmetricPairTensor.return_class = SymmetricPairTensor
 def isParticleProperty(object):
     """
     :param object: any object
-    :returns: True if object is a :class:`~MMTK.ParticleProperties.ParticleProperty`
+    :returns: True if object is a :class:~MMTK.ParticleProperties.ParticleProperty
     :rtype: bool
     """
     return isinstance(object, ParticleProperty)
@@ -617,7 +617,7 @@ def isParticleProperty(object):
 def isConfiguration(object):
     """
     :param object: any object
-    :returns: True if object is a :class:`~MMTK.ParticleProperties.Configuration`
+    :returns: True if object is a :class:~MMTK.ParticleProperties.Configuration
     :rtype: bool
     """
     return isinstance(object, Configuration)

@@ -78,7 +78,7 @@ class DeformationFunction(DeformationEvaluationFunction):
         """
         :param universe: the universe for which the deformation function
                          is defined
-        :type universe: :class:`~MMTK.Universe.Universe`
+        :type universe: :class:~MMTK.Universe.Universe
         :param fc_length: the range parameter r_0 in the pair interaction term
         :type fc_length: float
         :param cutoff: the cutoff used in the deformation calculation
@@ -121,7 +121,7 @@ class NormalizedDeformationFunction(DeformationFunction):
         """
         :param universe: the universe for which the deformation function
                          is defined
-        :type universe: :class:`~MMTK.Universe.Universe`
+        :type universe: :class:~MMTK.Universe.Universe
         :param fc_length: the range parameter r_0 in the pair interaction term
         :type fc_length: float
         :param cutoff: the cutoff used in the deformation calculation
@@ -159,7 +159,7 @@ class FiniteDeformationFunction(DeformationEvaluationFunction):
         """
         :param universe: the universe for which the deformation function
                          is defined
-        :type universe: :class:`~MMTK.Universe.Universe`
+        :type universe: :class:~MMTK.Universe.Universe
         :param fc_length: the range parameter r_0 in the pair interaction term
         :type fc_length: float
         :param cutoff: the cutoff used in the deformation calculation
@@ -208,7 +208,7 @@ class DeformationEnergyFunction(DeformationEvaluationFunction):
         """
         :param universe: the universe for which the deformation function
                          is defined
-        :type universe: :class:`~MMTK.Universe.Universe`
+        :type universe: :class:~MMTK.Universe.Universe
         :param fc_length: the range parameter r_0 in the pair interaction term
         :type fc_length: float
         :param cutoff: the cutoff used in the deformation calculation
@@ -271,7 +271,7 @@ class NormalizedDeformationEnergyFunction(DeformationEnergyFunction):
         """
         :param universe: the universe for which the deformation function
                          is defined
-        :type universe: :class:`~MMTK.Universe.Universe`
+        :type universe: :class:~MMTK.Universe.Universe
         :param fc_length: the range parameter r_0 in the pair interaction term
         :type fc_length: float
         :param cutoff: the cutoff used in the deformation calculation
@@ -312,7 +312,7 @@ class FiniteDeformationEnergyFunction(DeformationEvaluationFunction):
         """
         :param universe: the universe for which the deformation function
                          is defined
-        :type universe: :class:`~MMTK.Universe.Universe`
+        :type universe: :class:~MMTK.Universe.Universe
         :param fc_length: the range parameter r_0 in the pair interaction term
         :type fc_length: float
         :param cutoff: the cutoff used in the deformation calculation
@@ -370,7 +370,7 @@ class DeformationReducer(DeformationEvaluationFunction):
         """
         :param universe: the universe for which the deformation function
                          is defined
-        :type universe: :class:`~MMTK.Universe.Universe`
+        :type universe: :class:~MMTK.Universe.Universe
         :param fc_length: the range parameter r_0 in the pair interaction term
         :type fc_length: float
         :param cutoff: the cutoff used in the deformation calculation
@@ -413,7 +413,7 @@ class FiniteDeformationReducer(DeformationEvaluationFunction):
         """
         :param universe: the universe for which the deformation function
                          is defined
-        :type universe: :class:`~MMTK.Universe.Universe`
+        :type universe: :class:~MMTK.Universe.Universe
         :param fc_length: the range parameter r_0 in the pair interaction term
         :type fc_length: float
         :param cutoff: the cutoff used in the deformation calculation

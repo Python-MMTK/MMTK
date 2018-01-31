@@ -24,7 +24,7 @@ try:
     if numeric == "Numeric":
         import RNG
     elif numeric == "NumPy":
-        import numpy.oldnumeric.rng as RNG
+        import oldnumeric.rng as RNG
 except ImportError:
     pass
 
@@ -34,7 +34,7 @@ if RNG is None:
     if numeric == "Numeric":
         from RandomArray import uniform, seed
     elif numeric == "NumPy":
-        from numpy.oldnumeric.random_array import uniform, seed
+        from oldnumeric.random_array import uniform, seed
     random = __import__('random')
     seed(1, 1)
     random.seed(1)
@@ -191,12 +191,12 @@ def randomVelocity(temperature, mass):
 def randomParticleVector(universe, width):
     """
     :param universe: a universe
-    :type universe: :class:`~MMTK.Universe.Universe`
+    :type universe: :class:~MMTK.Universe.Universe
     :param width: the width (standard deviation) of a Gaussian distribution
     :type width: float
     :returns: a set of vectors drawn from a Gaussian distribution
               with a given width centered  around zero.
-    :rtype: :class:`~MMTK.ParticleProperties.ParticleVector`
+    :rtype: :class:~MMTK.ParticleProperties.ParticleVector
     """
     data = gaussian(0., 0.577350269189*width, (universe.numberOfPoints(), 3))
     return ParticleProperties.ParticleVector(universe, data)

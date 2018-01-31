@@ -110,7 +110,7 @@ class Viewable(object):
         """
         :keyword configuration: the configuration in which the objects
                                 are drawn (default: the current configuration)
-        :type configuration: :class:`~MMTK.ParticleProperties.Configuration`
+        :type configuration: :class:~MMTK.ParticleProperties.Configuration
         :keyword model: the graphical representation to be used (one of
                         "wireframe", "tube", "ball_and_stick", "vdw" and
                         "vdw_and_stick").  The vdw models use balls
@@ -138,7 +138,7 @@ class Viewable(object):
                                 attribute 'color' of each atom object (default
                                 values for each chemical element are provided
                                 in the chemical database).
-        :type  color_values: :class:`~MMTK.ParticleProperties.ParticleScalar`
+        :type  color_values: :class:~MMTK.ParticleProperties.ParticleScalar
         :keyword color_scale: an object that returns a color object (as defined
                               in the module Scientific.Visualization.Color)
                               when called with a number argument. Suitable
@@ -268,7 +268,7 @@ def viewSequence(object, conf_list, periodic = False, label = None):
     Launches an animation using an external viewer.
 
     :param object: the object for which the animation is displayed.
-    :type object: :class:`~MMTK.Collections.GroupOfAtoms`
+    :type object: :class:~MMTK.Collections.GroupOfAtoms
     :param conf_list: a sequence of configurations that define the animation
     :type conf_list: sequence
     :param periodic: if True, turn animation into a loop
@@ -294,7 +294,7 @@ def viewTrajectory(trajectory, first=0, last=None, skip=1, subset = None,
     Launches an animation based on a trajectory using an external viewer.
 
     :param trajectory: the trajectory
-    :type trajectory: :class:`~MMTK.Trajectory.Trajectory`
+    :type trajectory: :class:~MMTK.Trajectory.Trajectory
     :param first: the first trajectory step to be used
     :type first: int
     :param last: the first trajectory step NOT to be used
@@ -303,7 +303,7 @@ def viewTrajectory(trajectory, first=0, last=None, skip=1, subset = None,
     :type skip: int
     :param subset: the subset of the universe that is shown
                    (default: the whole universe)
-    :type subset: :class:`~MMTK.Collections.GroupOfAtoms`
+    :type subset: :class:~MMTK.Collections.GroupOfAtoms
     :param label: an optional text string that some interfaces
                   use to pass a description of the object to the
                   visualization system.

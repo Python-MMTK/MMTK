@@ -23,3 +23,6 @@ Src/MMTK_trajectory_action.c
 Src/MMTK_trajectory_generator.c
 Examples/Forcefield/*/Cython/*.c
 1
+.vscode
+*.egg-info
+.cache

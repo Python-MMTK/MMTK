@@ -27,7 +27,7 @@ class FourierBasis(object):
     Collective-motion basis for low-frequency normal mode calculations
 
     A FourierBasis behaves like a sequence of
-    :class:`~MMTK.ParticleProperties.ParticleVector` objects. The vectors are
+    :class:~MMTK.ParticleProperties.ParticleVector objects. The vectors are
     B{not} orthonormal, because orthonormalization is handled
     automatically by the normal mode class.
     """
@@ -35,7 +35,7 @@ class FourierBasis(object):
     def __init__(self, universe, cutoff):
         """
         :param universe: the universe for which the basis will be used
-        :type universe: :class:`~MMTK.Universe.Universe`
+        :type universe: :class:~MMTK.Universe.Universe
         :param cutoff: the wavelength cutoff. A smaller value yields
                        a larger basis.
         :type cutoff: float
@@ -99,7 +99,7 @@ def countBasisVectors(universe, cutoff):
     Estimate the number of basis vectors for a given universe and cutoff
 
     :param universe: the universe
-    :type universe: :class:`~MMTK.Universe.Universe`
+    :type universe: :class:~MMTK.Universe.Universe
     :param cutoff: the wavelength cutoff. A smaller value yields a larger basis.
     :type cutoff: float
     :returns: the number of basis vectors in a FourierBasis
@@ -126,7 +126,7 @@ def estimateCutoff(universe, nmodes):
     for a given universe.
 
     :param universe: the universe
-    :type universe: :class:`~MMTK.Universe.Universe`
+    :type universe: :class:~MMTK.Universe.Universe
     :param nmodes: the number of basis vectors in a FourierBasis
     :type nmodes: int
     :returns: the wavelength cutoff and the precise number of basis vectors

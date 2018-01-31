@@ -62,7 +62,7 @@ class SteepestDescentMinimizer(Minimizer):
     def __init__(self, universe, **options):
         """
         :param universe: the universe on which the integrator acts
-        :type universe: :class:`~MMTK.Universe.Universe`
+        :type universe: :class:~MMTK.Universe.Universe
         :keyword steps: the number of minimization steps (default is 100)
         :type steps: int
         :keyword step_size: the initial size of a minimization step
@@ -141,7 +141,7 @@ class ConjugateGradientMinimizer(Minimizer):
     def __init__(self, universe, **options):
         """
         :param universe: the universe on which the integrator acts
-        :type universe: :class:`~MMTK.Universe.Universe`
+        :type universe: :class:~MMTK.Universe.Universe
         :keyword steps: the number of minimization steps (default is 100)
         :type steps: int
         :keyword step_size: the initial size of a minimization step

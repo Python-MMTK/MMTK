@@ -54,10 +54,10 @@ class PDBPeptideChain(Scientific.IO.PDB.PeptideChain, PDBChain):
     def createPeptideChain(self, model = 'all',
                            n_terminus=None, c_terminus=None):
         """
-        :returns: a :class:`~MMTK.Proteins.PeptideChain` object corresponding to the
+        :returns: a :class:~MMTK.Proteins.PeptideChain object corresponding to the
                   peptide chain in the PDB file. The parameter model
                   has the same meaning as for the PeptideChain constructor.
-        :rtype: :class:`~MMTK.Proteins.PeptideChain`
+        :rtype: :class:~MMTK.Proteins.PeptideChain
         """
         self.identifyProtonation()
         from MMTK import Proteins
@@ -131,10 +131,10 @@ class PDBNucleotideChain(Scientific.IO.PDB.NucleotideChain, PDBChain):
 
     def createNucleotideChain(self, model='all'):
         """
-        :returns: a :class:`~MMTK.NucleicAcids.NucleotideChain` object corresponding 
+        :returns: a :class:~MMTK.NucleicAcids.NucleotideChain object corresponding 
                   to the nucleotide chain in the PDB file. The parameter model
                   has the same meaning as for the NucleotideChain constructor.
-        :rtype: :class:`~MMTK.NucleicAcids.NucleotideChain`
+        :rtype: :class:~MMTK.NucleicAcids.NucleotideChain
         """
         from MMTK import NucleicAcids
         properties = {'model': model}
@@ -172,12 +172,12 @@ class PDBMolecule(Scientific.IO.PDB.Molecule):
 
     def createMolecule(self, name=None):
         """
-        :returns: a :class:`~MMTK.ChemicalObjects.Molecule` object corresponding 
+        :returns: a :class:~MMTK.ChemicalObjects.Molecule object corresponding 
                   to the molecule in the PDB file. The parameter name 
                   specifies the molecule name as defined in the chemical database.
                   It can be left out for known molecules (currently
                   only water).
-        :rtype: :class:`~MMTK.ChemicalObjects.Molecule`
+        :rtype: :class:~MMTK.ChemicalObjects.Molecule
         """
         if name is None:
             name = molecule_names[self.name]
@@ -296,7 +296,7 @@ class PDBConfiguration(Scientific.IO.PDB.Structure):
         a unit cell at all, an InfiniteUniverse is returned.
         
         :returns: a universe
-        :rtype: :class:`~MMTK.Universe.Universe`
+        :rtype: :class:~MMTK.Universe.Universe
         """
         if self.from_fractional is None:
             return Universe.InfiniteUniverse()
@@ -314,7 +314,7 @@ class PDBConfiguration(Scientific.IO.PDB.Structure):
 
     def createPeptideChains(self, model='all'):
         """
-        :returns: a list of :class:`~MMTK.Proteins.PeptideChain` objects, one for each
+        :returns: a list of :class:~MMTK.Proteins.PeptideChain objects, one for each
                   peptide chain in the PDB file. The parameter model
                   has the same meaning as for the PeptideChain constructor.
         :rtype: list
@@ -324,7 +324,7 @@ class PDBConfiguration(Scientific.IO.PDB.Structure):
 
     def createNucleotideChains(self, model='all'):
         """
-        :returns: a list of :class:`~MMTK.NucleicAcids.NucleotideChain` objects, one for each
+        :returns: a list of :class:~MMTK.NucleicAcids.NucleotideChain objects, one for each
                   nucleotide chain in the PDB file. The parameter model
                   has the same meaning as for the NucleotideChain constructor.
         :rtype: list
@@ -348,11 +348,11 @@ class PDBConfiguration(Scientific.IO.PDB.Structure):
                                  in names. If True, an AtomCluster
                                  object is constructed for each unknown
                                  molecule.
-        :returns: a collection of :class:`~MMTK.ChemicalObjects.Molecule` objects,
+        :returns: a collection of :class:~MMTK.ChemicalObjects.Molecule objects,
                   one for each molecule in the PDB file. Each PDB residue not 
                   describing an amino acid or nucleotide residue is considered a
                   molecule.
-        :rtype: :class:`~MMTK.Collections.Collection`
+        :rtype: :class:~MMTK.Collections.Collection
         """
         collection = Collections.Collection()
         mol_dicts = [molecule_names]
@@ -416,12 +416,12 @@ class PDBConfiguration(Scientific.IO.PDB.Structure):
         """
         :returns: a collection containing all objects contained in the
                   PDB file, i.e. the combination of the objects
-                  returned by :func:`~MMTK.PDB.PDBConfiguration.createPeptideChains`,
-                  :func:`~MMTK.PDB.PDBConfiguration.createNucleotideChains`,
-                  and :func:`~MMTK.PDB.PDBConfiguration.createMolecules`.
+                  returned by :func:~MMTK.PDB.PDBConfiguration.createPeptideChains,
+                  :func:~MMTK.PDB.PDBConfiguration.createNucleotideChains,
+                  and :func:~MMTK.PDB.PDBConfiguration.createMolecules.
                   The parameters have the same meaning as for
-                  :func:`~MMTK.PDB.PDBConfiguration.createMolecules`.
-        :rtype: :class:`~MMTK.Collectionc.Collection`
+                  :func:~MMTK.PDB.PDBConfiguration.createMolecules.
+        :rtype: :class:~MMTK.Collectionc.Collection
         """
         collection = Collections.Collection()
         peptide_chains = self.createPeptideChains()
@@ -437,7 +437,7 @@ class PDBConfiguration(Scientific.IO.PDB.Structure):
     def asuToUnitCell(self, asu_contents, compact=True):
         """
         :param asu_contents: the molecules in the asymmetric unit, usually
-                             obtained from :func:`~MMTK.PDB.PDBConfiguration.createAll()`.
+                             obtained from :func:~MMTK.PDB.PDBConfiguration.createAll().
         :param compact: if True, all molecules images are shifted such that
                         their centers of mass lie inside the unit cell.
         :type compact: bool
@@ -445,7 +445,7 @@ class PDBConfiguration(Scientific.IO.PDB.Structure):
                   obtained by copying and moving the molecules from the
                   asymmetric unit according to the crystallographic
                   symmetry operations.
-        :rtype: :class:`~MMTK.Collections.Collection`
+        :rtype: :class:~MMTK.Collections.Collection
         """
         unit_cell_contents = Collections.Collection()
         for symop in self.cs_transformations:
@@ -472,7 +472,7 @@ class PDBConfiguration(Scientific.IO.PDB.Structure):
         contain the same subobjects and in the same order. This is usually
         only guaranteed if the object was created by the method
 
-        :func:`~MMTK.PDB.PDBConfiguration.createAll` from a PDB file with the same layout.
+        :func:~MMTK.PDB.PDBConfiguration.createAll from a PDB file with the same layout.
         :param object: a chemical object or collection of chemical objects
         """
         setConfiguration(object, self.residues, atom_map=atom_map)
@@ -561,7 +561,7 @@ def setConfiguration(object, pdb_residues,
             name = object.fullName()
         except: pass
         if name: name = ' in ' + name
-        Utility.warning(`object.numberOfAtoms()-defined` + ' atom(s)' + name +
+        Utility.warning(object.numberOfAtoms()-defined + ' atom(s)' + name +
                         ' were not assigned (new) positions.')
     return defined
 
@@ -617,10 +617,10 @@ class PDBOutputFile(object):
         Write  an object to the file
 
         :param object: the object to be written
-        :type object: :class:`~MMTK.Collections.GroupOfAtoms`
+        :type object: :class:~MMTK.Collections.GroupOfAtoms
         :param configuration: the configuration from which the coordinates 
                               are taken (default: current configuration)
-        :type configuration: :class:`~MMTK.ParticleProperties.Configuration`
+        :type configuration: :class:~MMTK.ParticleProperties.Configuration
         """
         if not ChemicalObjects.isChemicalObject(object):
             for o in object:
