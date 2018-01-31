@@ -22,7 +22,7 @@
 #endif
 
 #ifdef WITH_MPI
-#include "Scientific/mpimodule.h"
+#include "ScientificPython/mpimodule.h"
 #endif
 
 /* Configurable parameters */

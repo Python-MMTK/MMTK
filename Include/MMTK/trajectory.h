@@ -9,9 +9,9 @@
 /* General include files */
 
 #include "MMTK/core.h"
-#include "Scientific/netcdfmodule.h"
+#include "ScientificPython/netcdfmodule.h"
 #ifdef USE_NETCDF_H_FROM_SCIENTIFIC
-# include "Scientific/netcdf.h"
+# include "ScientificPython/netcdf.h"
 #else
 # include "netcdf.h"
 #endif
