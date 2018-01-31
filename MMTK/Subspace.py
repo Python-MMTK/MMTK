@@ -22,49 +22,16 @@ from Scientific.Geometry import Vector, ex, ey, ez
 from Scientific import N
 import copy
 
-#
-# Import LAPACK routines
-#
-try:
-    array_package = N.package
-except AttributeError:
-    array_package = "Numeric"
+import numpy as np
 
-dgesdd = None
-try:
-    if array_package == "Numeric":
-        from lapack_lite import dgesdd, LapackError
-    else:
-        from numpy.linalg.lapack_lite import dgesdd, LapackError
-except ImportError: pass
-if dgesdd is None:
-    try:
-        # PyLAPACK
-        from lapack_dge import dgesdd
-    except ImportError: pass
-if dgesdd:
-    n = 1
-    array = N.zeros((n, n), N.Float)
-    sv = N.zeros((n,), N.Float)
-    u = N.zeros((n, n), N.Float)
-    vt = N.zeros((n, n), N.Float)
-    work = N.zeros((1,), N.Float)
-    int_types = [N.Int, N.Int8, N.Int16, N.Int32]
-    try:
-        int_types.append(N.Int64)
-        int_types.append(N.Int128)
-    except AttributeError:
-        pass
-    for int_type in int_types:
-        iwork = N.zeros((1,), int_type)
-        try:
-            dgesdd('S', n, n, array, n, sv, u, n, vt, n, work, -1, iwork, 0)
-            break
-        except LapackError:
-            pass
-    del n, array, sv, u, vt, work, iwork, int_types
+int_type = np.int64
 
-del array_package
+from scipy.linalg import eigh
+from numpy.linalg import svd
+
+
+def coerce_array(array):
+    return array
 
 #
 # A set of particle vectors that define a subspace
@@ -140,26 +107,8 @@ class Subspace(object):
             vt = N.zeros((nvectors, min_n_m), N.Float)
             work = N.zeros((1,), N.Float)
             iwork = N.zeros((8*min_n_m,), int_type)
-            if 3*natoms >= nvectors:
-                result = dgesdd('O', 3*natoms, nvectors, basis, 3*natoms,
-                                sv, basis, 3*natoms, vt, min_n_m,
-                                work, -1, iwork, 0)
-                work = N.zeros((int(work[0]),), N.Float)
-                result = dgesdd('O', 3*natoms, nvectors, basis, 3*natoms,
-                                sv, basis, 3*natoms, vt, min_n_m,
-                                work, work.shape[0], iwork, 0)
-                u = basis
-            else:
-                u = N.zeros((min_n_m, 3*natoms), N.Float)
-                result = dgesdd('S', 3*natoms, nvectors, basis, 3*natoms,
-                                sv, u, 3*natoms, vt, min_n_m,
-                                work, -1, iwork, 0)
-                work = N.zeros((int(work[0]),), N.Float)
-                result = dgesdd('S', 3*natoms, nvectors, basis, 3*natoms,
-                                sv, u, 3*natoms, vt, min_n_m,
-                                work, work.shape[0], iwork, 0)
-            if result['info'] != 0:
-                raise ValueError('Lapack SVD: ' + `result['info']`)
+            u, sv, _ = svd(coerce_array(np.asarray(basis)))
+            u, sv = N.array(u), N.array(sv)
             svmax = N.maximum.reduce(sv)
             nvectors = N.add.reduce(N.greater(sv, 1.e-10*svmax))
             u = u[:nvectors]
