@@ -268,6 +268,5 @@ simulations.
     install_requires=[
         'ScientificPython',
         'six',
-        'scipy',
     ]
 )

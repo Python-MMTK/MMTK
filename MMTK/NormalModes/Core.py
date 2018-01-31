@@ -13,9 +13,7 @@ import numpy as np
  
 int_type = np.int64
 
-from scipy.linalg import eigh
-from scipy.linalg.lapack import dsyevd
-from numpy.linalg import svd
+from numpy.linalg import svd, eigh
 
 
 def coerce_array(array):
@@ -207,29 +205,9 @@ class NormalModes(object):
             return eigenvalues
 
         # Calculate eigenvalues and eigenvectors of self.array
-        if eigh is not None:
-            _symmetrize(self.array)
-            ev, modes = eigh(self.array, overwrite_a=True)
-            self.array = N.transpose(modes)
-        elif dsyevd is None:
-            ev, modes = Heigenvectors(self.array)
-            ev = ev.real
-            modes = modes.real
-            self.array = modes
-        else:
-            ev = N.zeros((self.nmodes,), N.Float)
-            work = N.zeros((1,), N.Float)
-            iwork = N.zeros((1,), int_type)
-            results = dsyevd('V', 'L', self.nmodes, self.array, self.nmodes,
-                             ev, work, -1, iwork, -1, 0)
-            lwork = int(work[0])
-            liwork = iwork[0]
-            work = N.zeros((lwork,), N.Float)
-            iwork = N.zeros((liwork,), int_type)
-            results = dsyevd('V', 'L', self.nmodes, self.array, self.nmodes,
-                             ev, work, lwork, iwork, liwork, 0)
-            if results['info'] > 0:
-                raise ValueError('Eigenvalue calculation did not converge')
+        _symmetrize(self.array)
+        ev, modes = eigh(self.array)
+        self.array = N.transpose(modes)
 
         if self.basis is not None:
             self.array = N.dot(self.array, self.basis)

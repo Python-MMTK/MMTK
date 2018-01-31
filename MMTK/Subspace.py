@@ -26,8 +26,7 @@ import numpy as np
 
 int_type = np.int64
 
-from scipy.linalg import eigh
-from numpy.linalg import svd
+from numpy.linalg import svd, eigh
 
 
 def coerce_array(array):
