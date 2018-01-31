@@ -33,7 +33,7 @@ class TrajectoryManager:
     def serverList(self):
         servers = []
         for name in self.pyro_ns.status().keys():
-            fields = string.split(name, ':')
+            fields = (name.split(':'))
             if len(fields) == 3 and fields[1] == 'MMTK' \
                and fields[2] == 'server':
                 ip_address = fields[0]
@@ -61,7 +61,7 @@ class TrajectoryManager:
     def trajectoryList(self):
         trajectories = []
         for name in self.pyro_ns.status().keys():
-            fields = string.split(name, ':')
+            fields = (name.split(':'))
             if len(fields) == 4 and fields[1] == 'MMTK' \
                and fields[2] == 'trajectory':
                 ip_address = fields[0]

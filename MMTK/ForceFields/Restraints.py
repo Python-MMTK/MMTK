@@ -42,9 +42,9 @@ class HarmonicDistanceRestraint(ForceField):
                  nb_exclusion=False):
         """
         :param obj1: the object defining center-of-mass 1
-        :type obj1: :class:`~MMTK.Collections.GroupOfAtoms`
+        :type obj1: :class:~MMTK.Collections.GroupOfAtoms
         :param obj2: the object defining center-of-mass 2
-        :type obj2: :class:`~MMTK.Collections.GroupOfAtoms`
+        :type obj2: :class:~MMTK.Collections.GroupOfAtoms
         :param distance: the distance between cm 1 and cm2 at which
                          the restraint is zero
         :type distance: float
@@ -153,7 +153,7 @@ class HarmonicDistanceRestraint(ForceField):
 
     def description(self):
         return 'ForceFields.Restraints.' + self.__class__.__name__ + \
-               `self.arguments`
+               self.arguments
 
 
 class HarmonicAngleRestraint(ForceField):
@@ -165,11 +165,11 @@ class HarmonicAngleRestraint(ForceField):
     def __init__(self, atom1, atom2, atom3, angle, force_constant):
         """
         :param atom1: first atom
-        :type atom1: :class:`~MMTK.ChemicalObjects.Atom`
+        :type atom1: :class:~MMTK.ChemicalObjects.Atom
         :param atom2: second (central) atom
-        :type atom2: :class:`~MMTK.ChemicalObjects.Atom`
+        :type atom2: :class:~MMTK.ChemicalObjects.Atom
         :param atom3: third atom
-        :type atom3: :class:`~MMTK.ChemicalObjects.Atom`
+        :type atom3: :class:~MMTK.ChemicalObjects.Atom
         :param angle: the angle at which the restraint is zero
         :type angle: float
         :param force_constant: the force constant of the restraint term.
@@ -208,13 +208,13 @@ class HarmonicDihedralRestraint(ForceField):
     def __init__(self, atom1, atom2, atom3, atom4, dihedral, force_constant):
         """
         :param atom1: first atom
-        :type atom1: :class:`~MMTK.ChemicalObjects.Atom`
+        :type atom1: :class:~MMTK.ChemicalObjects.Atom
         :param atom2: second (axis) atom
-        :type atom2: :class:`~MMTK.ChemicalObjects.Atom`
+        :type atom2: :class:~MMTK.ChemicalObjects.Atom
         :param atom3: third (axis)atom
-        :type atom3: :class:`~MMTK.ChemicalObjects.Atom`
+        :type atom3: :class:~MMTK.ChemicalObjects.Atom
         :param atom4: fourth atom
-        :type atom4: :class:`~MMTK.ChemicalObjects.Atom`
+        :type atom4: :class:~MMTK.ChemicalObjects.Atom
         :param dihedral: the dihedral angle at which the restraint is zero
         :type dihedral: float
         :param force_constant: the force constant of the restraint term.
@@ -255,7 +255,7 @@ class HarmonicTrapForceField(ForceField):
     def __init__(self, obj, center, force_constant):
         """
         :param obj: the object on whose center of mass the force field acts
-        :type obj: :class:`~MMTK.Collections.GroupOfAtoms`
+        :type obj: :class:~MMTK.Collections.GroupOfAtoms
         :param center: the point to which the atom is attached by
                         the harmonic potential
         :type center: Scientific.Geometry.Vector

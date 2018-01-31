@@ -21,7 +21,7 @@ class EnergeticMode(Core.Mode):
     """
     Single energetic normal mode
 
-    Mode objects are created by indexing a :class:`MMTK.NormalModes.EnergeticModes.EnergeticModes` object.
+    Mode objects are created by indexing a :class:MMTK.NormalModes.EnergeticModes.EnergeticModes object.
     They contain the atomic displacements corresponding to a
     single mode. In addition, the force constant corresponding to the mode
     is stored in the attribute "force_constant".
@@ -32,8 +32,8 @@ class EnergeticMode(Core.Mode):
         Core.Mode.__init__(self, universe, n, mode)
 
     def __str__(self):
-        return 'Mode ' + `self.number` + ' with force constant ' + \
-               `self.force_constant`
+        return 'Mode ' + self.number + ' with force constant ' + \
+               self.force_constant
 
     __repr__ = __str__
 
@@ -51,7 +51,7 @@ class EnergeticModes(Core.NormalModes):
     of the universe must correspond to a local minimum of the potential
     energy.
 
-    Individual modes (see class :class:`~MMTK.NormalModes.EnergeticModes.EnergeticMode`)
+    Individual modes (see class :class:~MMTK.NormalModes.EnergeticModes.EnergeticMode)
     can be extracted by indexing with an integer. Looping over the modes
     is possible as well.
     """
@@ -64,7 +64,7 @@ class EnergeticModes(Core.NormalModes):
         :param universe: the system for which the normal modes are calculated;
                          it must have a force field which provides the second
                          derivatives of the potential energy
-        :type universe: :class:`~MMTK.Universe.Universe`
+        :type universe: :class:~MMTK.Universe.Universe
         :param temperature: the temperature for which the amplitudes of the
                             atomic displacement vectors are calculated. A
                             value of None can be specified to have no scaling
@@ -75,7 +75,7 @@ class EnergeticModes(Core.NormalModes):
                          are calculated (or, more precisely, a set of vectors
                          spanning the subspace; it does not have to be
                          orthogonal). This can either be a sequence of
-                         :class:`~MMTK.ParticleProperties.ParticleVector` objects
+                         :class:~MMTK.ParticleProperties.ParticleVector objects
                          or a tuple of two such sequences. In the second case,
                          the subspace is defined by the space spanned by the
                          second set of vectors projected on the complement of
@@ -143,7 +143,7 @@ class EnergeticModes(Core.NormalModes):
         :param item: the index of a normal mode
         :type item: int
         :returns: the unscaled mode vector
-        :rtype: :class:`~MMTK.NormalModes.EnergeticModes.EnergeticMode`
+        :rtype: :class:~MMTK.NormalModes.EnergeticModes.EnergeticMode
         """
         index = self.sort_index[item]
         f = self.force_constants[index]

@@ -11,6 +11,9 @@ Force fields
 __docformat__ = 'restructuredtext'
 
 import os, string, sys
+import six
+
+from pkg_resources import resource_stream
 
 class _ForceFieldLoader(object):
 
@@ -27,16 +30,17 @@ class _ForceFieldLoader(object):
         return apply(ffc, args, kw)
 
 def _description(self):
-    return 'ForceFields.' + self.__class__.__name__ + `self.arguments`
+    return 'ForceFields.' + self.__class__.__name__ + self.arguments
 
-ff_list = open(os.path.join(os.path.split(__file__)[0],
-                            'force_fields')).readlines()
+ff_list = resource_stream(__name__, 'force_fields').readlines()
 for line in ff_list:
-    line = string.split(line)
-    exec line[0] + "=_ForceFieldLoader(line[1], line[2])"
+    if six.PY3:
+        line = line.decode()
+    line = (line).split()
+    six.exec_(line[0] + "=_ForceFieldLoader(line[1], line[2])")
 
 try:
-    default_energy_threads = string.atoi(os.environ['MMTK_ENERGY_THREADS'])
+    default_energy_threads = int(os.environ['MMTK_ENERGY_THREADS'])
 except KeyError:
     default_energy_threads = 1
 

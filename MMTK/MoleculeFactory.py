@@ -172,12 +172,12 @@ class MoleculeFactory(object):
     bonds. Each MoleculeFactory constitutes an independent set of definitions.
     Definitions within a MoleculeFactory can refer to each other.
 
-    Each MoleculeFactory stores a set of :class:`~MMTK.ChemicalObjects.Group`
+    Each MoleculeFactory stores a set of :class:~MMTK.ChemicalObjects.Group
     objects which are referred to by names. The typical operation sequence is to
     create a new group and then add atoms, bonds, and subgroups. It is also
     possible to define coordinates and arbitrary attributes (in particular for
     force fields). In the end, a finished object can be retrieved as a 
-    :class:`~MMTK.ChemicalObjects.Molecule` object.
+    :class:~MMTK.ChemicalObjects.Molecule object.
     '''
 
     def __init__(self):
@@ -245,7 +245,7 @@ class MoleculeFactory(object):
         :param group: the name of the group to be used as a template
         :type group: str
         :returns: a molecule defined by the contents of the group
-        :rtype: :class:`~MMTK.ChemicalObjects.Molecule`
+        :rtype: :class:~MMTK.ChemicalObjects.Molecule
         """
 
         group = self.groups[group]

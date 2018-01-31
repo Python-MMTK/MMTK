@@ -36,7 +36,7 @@ class PDBMoleculeFactory(MoleculeFactory):
     def __init__(self, pdb_conf, residue_filter=None, atom_filter=None):
         """
         :param pdb_conf: a PDBConfiguration
-        :type pdb_conf: :class:`~MMTK.PDB.PDBConfiguration`
+        :type pdb_conf: :class:~MMTK.PDB.PDBConfiguration
         :param residue_filter: a function taking a residue object
                                (as defined in Scientific.IO.PDB)
                                and returning True if that residue is
@@ -110,7 +110,7 @@ class PDBMoleculeFactory(MoleculeFactory):
         a unit cell at all, an InfiniteUniverse is returned.
         
         :returns: a universe
-        :rtype: :class:`~MMTK.Universe.Universe`
+        :rtype: :class:~MMTK.Universe.Universe
         """
         return self.pdb_conf.createUnitCellUniverse()
 
@@ -122,7 +122,7 @@ class PDBMoleculeFactory(MoleculeFactory):
         the asymmetric unit.
         
         :returns: a universe
-        :rtype: :class:`~MMTK.Universe.Universe`
+        :rtype: :class:~MMTK.Universe.Universe
         """
         universe = self.retrieveUniverse()
         universe.addObject(self.retrieveMolecules())
@@ -141,7 +141,7 @@ class PDBMoleculeFactory(MoleculeFactory):
                         their centers of mass lie inside the unit cell.
         :type compact: bool
         :returns: a universe
-        :rtype: :class:`~MMTK.Universe.Universe`
+        :rtype: :class:~MMTK.Universe.Universe
         """
         if not self.pdb_conf.cs_transformations:
             return self.retrieveAsymmetricUnit()

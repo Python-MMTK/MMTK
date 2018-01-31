@@ -131,7 +131,7 @@ class ResidueChain(ChemicalObjects.Molecule):
         :type types: str
         :returns: a collection that contains all residues whose type
                   (residue code) is contained in types
-        :rtype: :class:`~MMTK.Collections.Collection`
+        :rtype: :class:~MMTK.Collections.Collection
         """
         types = [t.lower() for t in types]
         rlist = [r for r in self.groups if r.type.symbol.lower() in types]
@@ -140,7 +140,7 @@ class ResidueChain(ChemicalObjects.Molecule):
     def residues(self):
         """
         :returns: a collection containing all residues
-        :rtype: :class:`~MMTK.Collections.Collection`
+        :rtype: :class:~MMTK.Collections.Collection
         """
         return Collections.Collection(self.groups)
 

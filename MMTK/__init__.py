@@ -9,12 +9,14 @@ It contains the most common objects and all submodules. As a convenience
 to the user, it also imports some commonly used objects from other
 libraries:
 
-* ``Vector`` from ``Scientific.Geometry``
-* ``Translation`` and ``Rotation`` from ``Scientific.Geometry.Transformation``
-* ``copy`` and ``deepcopy`` from ``copy``
-* ``stdin``, ``stdout``, and ``stderr`` from ``sys``
+* Vector from Scientific.Geometry
+* Translation and Rotation from Scientific.Geometry.Transformation
+* copy and deepcopy from copy
+* stdin, stdout, and stderr from sys
 
 """
+
+from __future__ import absolute_import
 
 __docformat__ = 'restructuredtext'
 
@@ -22,7 +24,7 @@ __docformat__ = 'restructuredtext'
 #
 # Package information
 #
-from __pkginfo__ import __version__
+from .__pkginfo__ import __version__
 
 #
 # Add shared library path to sys.path
@@ -44,17 +46,17 @@ from sys import stdin, stdout, stderr
 #
 # MMTK core modules
 #
-from ThreadManager import activeThreads, waitForThreads
-from Universe import InfiniteUniverse, OrthorhombicPeriodicUniverse, \
+from .ThreadManager import activeThreads, waitForThreads
+from .Universe import InfiniteUniverse, OrthorhombicPeriodicUniverse, \
                      CubicPeriodicUniverse, ParallelepipedicPeriodicUniverse
-from ParticleProperties import ParticleScalar, ParticleVector, \
+from .ParticleProperties import ParticleScalar, ParticleVector, \
                                ParticleTensor, SymmetricPairTensor, \
                                Configuration
-from ChemicalObjects import Atom, Molecule, Complex, AtomCluster
-from Collections import Collection, PartitionedCollection, \
+from .ChemicalObjects import Atom, Molecule, Complex, AtomCluster
+from .Collections import Collection, PartitionedCollection, \
                         PartitionedAtomCollection
-from Utility import save, load
-import Units
+from .Utility import save, load
+from . import Units
 
 # Pretend that certain object are defined here for documentation purposes
 

@@ -108,7 +108,7 @@ def writeDCDPDB(conf_list, dcd_file_name, pdb_file_name, delta_t=0.1):
     a compatible PDB file.
 
     :param conf_list: the sequence of configurations
-    :type conf_list: sequence of :class:`~MMTK.ParticleProperties.Configuration`
+    :type conf_list: sequence of :class:~MMTK.ParticleProperties.Configuration
     :param dcd_file_name: the name of the DCD file
     :type dcd_file_name: str
     :param pdb_file_name: the name of the PDB file
@@ -128,7 +128,7 @@ def writeVelocityDCDPDB(vel_list, dcd_file_name, pdb_file_name, delta_t=0.1):
     a compatible PDB file.
 
     :param vel_list: the sequence of velocity particle vectors
-    :type vel_list: sequence of :class:`~MMTK.ParticleProperties.ParticleVector`
+    :type vel_list: sequence of :class:~MMTK.ParticleProperties.ParticleVector
     :param dcd_file_name: the name of the DCD file
     :type dcd_file_name: str
     :param pdb_file_name: the name of the PDB file

@@ -54,7 +54,7 @@ class Nucleotide(Biopolymers.Residue):
     def backbone(self):
         """
         :returns: the sugar and phosphate groups
-        :rtype: :class:`~MMTK.ChemicalObjects.Group`
+        :rtype: :class:~MMTK.ChemicalObjects.Group
         """
         bb = self.sugar
         if hasattr(self, 'phosphate'):
@@ -64,7 +64,7 @@ class Nucleotide(Biopolymers.Residue):
     def bases(self):
         """
         :returns: the base group
-        :rtype: :class:`~MMTK.ChemicalObjects.Group`
+        :rtype: :class:~MMTK.ChemicalObjects.Group
         """
         return self.base
 
@@ -114,7 +114,7 @@ class NucleotideChain(Biopolymers.ResidueChain):
                          containing the one-letter codes, or a list
                          of two-letter codes (a "d" or "r" for the type of
                          sugar, and the one-letter base code), or a
-                         :class:`~MMTK.PDB.PDBNucleotideChain` object.
+                         :class:~MMTK.PDB.PDBNucleotideChain object.
                          If a PDBNucleotideChain object is supplied, the
                          atomic positions it contains are assigned to the
                          atoms of the newly generated nucleotide chain,
@@ -197,7 +197,7 @@ class NucleotideChain(Biopolymers.ResidueChain):
     def backbone(self):
         """
         :returns: the sugar and phosphate groups of all nucleotides
-        :rtype: :class:`~MMTK.Collections.Collection`
+        :rtype: :class:~MMTK.Collections.Collection
         """
         bb = Collections.Collection([])
         for residue in self.groups:
@@ -211,12 +211,12 @@ class NucleotideChain(Biopolymers.ResidueChain):
     def bases(self):
         """
         :returns: the base groups of all nucleotides
-        :rtype: :class:`~MMTK.Collections.Collection`
+        :rtype: :class:~MMTK.Collections.Collection
         """
 	return Collections.Collection([r.base for r in self.groups])
 
     def _descriptionSpec(self):
-        kwargs = ','.join([name + '=' + `self.version_spec[name]`
+        kwargs = ','.join([name + '=' + self.version_spec[name]
                            for name in sorted(self.version_spec.keys())])
 	return "N", kwargs
 

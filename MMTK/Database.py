@@ -20,6 +20,7 @@ from MMTK import Utility
 import copy
 import os
 import sys
+import six
 
 #
 # Find database path
@@ -102,7 +103,7 @@ class ChemicalObjectType(object):
         self.database_name = database_name
         file_text = Utility.readURL(filename)
         newvars = {}
-        exec file_text in vars(module), newvars
+        six.exec_(file_text, vars(module), newvars)
         for name, value in newvars.items():
             setattr(self, name, value)
         self.parent = None
@@ -166,7 +167,7 @@ class ChemicalObjectType(object):
         try:
             name = self.name
         except AttributeError:
-            name = 'm' + `memo['counter']`
+            name = 'm' + memo['counter']
             memo['counter'] = memo['counter'] + 1
         memo[id(self)] = name
         atoms = copy.copy(self.atoms)
@@ -235,7 +236,7 @@ class AtomType(ChemicalObjectType):
         total_probability = sum([m[1] for m in self.mass])
         if abs(total_probability-100.) > 1.e-4:
             raise self.error('Inconsistent mass specification: ' +
-                              `total_probability-100.` + ' percent missing')
+                              total_probability-100. + ' percent missing')
         self.average_mass = sum([m[0]*m[1] for m in self.mass])/100
         if not hasattr(self, 'pdbmap'):
             name = self.symbol.upper()
@@ -353,7 +354,7 @@ class AtomReference(object):
         self.number = self.number + offset
 
     def __repr__(self):
-        return '<Atom number ' + `self.number` + '>'
+        return '<Atom number ' + self.number + '>'
     __str__ = __repr__
 
     def __eq__(self, other):

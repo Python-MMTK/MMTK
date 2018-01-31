@@ -81,7 +81,7 @@ class GroupOfAtoms(object):
         """
         :param conf: a configuration object, or None for the
                      current configuration
-        :type conf: :class:`~MMTK.ParticleProperties.Configuration` or NoneType
+        :type conf: :class:~MMTK.ParticleProperties.Configuration or NoneType
         :returns: a collection of all atoms that have a position in the
                   given configuration
         """
@@ -99,7 +99,7 @@ class GroupOfAtoms(object):
         """
         :param conf: a configuration object, or None for the
                      current configuration
-        :type conf: :class:`~MMTK.ParticleProperties.Configuration` or NoneType
+        :type conf: :class:~MMTK.ParticleProperties.Configuration or NoneType
         :returns: the center of mass in the given configuration
         :rtype: Scientific.Geometry.Vector
         """
@@ -125,7 +125,7 @@ class GroupOfAtoms(object):
         """
         :param conf: a configuration object, or None for the
                      current configuration
-        :type conf: :class:`~MMTK.ParticleProperties.Configuration` or NoneType
+        :type conf: :class:~MMTK.ParticleProperties.Configuration or NoneType
         :returns: the center of mass and the moment of inertia tensor
                   in the given configuration
         """
@@ -155,7 +155,7 @@ class GroupOfAtoms(object):
         """
         :param conf: a configuration object, or None for the
                      current configuration
-        :type conf: :class:`~MMTK.ParticleProperties.Configuration` or NoneType
+        :type conf: :class:~MMTK.ParticleProperties.Configuration or NoneType
         :returns: a sorted array of rotational constants A, B, C
                   in internal units
         """
@@ -167,7 +167,7 @@ class GroupOfAtoms(object):
         """
         :param conf: a configuration object, or None for the
                      current configuration
-        :type conf: :class:`~MMTK.ParticleProperties.Configuration` or NoneType
+        :type conf: :class:~MMTK.ParticleProperties.Configuration or NoneType
         :returns: two opposite corners of a bounding box around the
                   object. The bounding box is the smallest rectangular
                   bounding box with edges parallel to the coordinate axes.
@@ -186,7 +186,7 @@ class GroupOfAtoms(object):
         """
         :param conf: a configuration object, or None for the
                      current configuration
-        :type conf: :class:`~MMTK.ParticleProperties.Configuration` or NoneType
+        :type conf: :class:~MMTK.ParticleProperties.Configuration or NoneType
         :returns: a sphere that contains all atoms in the object.
                   This is B{not} the minimal bounding sphere, just B{some}
                   bounding sphere.
@@ -203,10 +203,10 @@ class GroupOfAtoms(object):
     def rmsDifference(self, conf1, conf2 = None):
         """
         :param conf1: a configuration object
-        :type conf1: :class:`~MMTK.ParticleProperties.Configuration`
+        :type conf1: :class:~MMTK.ParticleProperties.Configuration
         :param conf2: a configuration object, or None for the
                       current configuration
-        :type conf2: :class:`~MMTK.ParticleProperties.Configuration` or NoneType
+        :type conf2: :class:~MMTK.ParticleProperties.Configuration or NoneType
         :returns: the RMS (root-mean-square) difference between the
                   conformations of the object in two universe configurations,
                   conf1 and conf2
@@ -242,10 +242,10 @@ class GroupOfAtoms(object):
     def findTransformation(self, conf1, conf2 = None):
         """
         :param conf1: a configuration object
-        :type conf1: :class:`~MMTK.ParticleProperties.Configuration`
+        :type conf1: :class:~MMTK.ParticleProperties.Configuration
         :param conf2: a configuration object, or None for the
                       current configuration
-        :type conf2: :class:`~MMTK.ParticleProperties.Configuration` or NoneType
+        :type conf2: :class:~MMTK.ParticleProperties.Configuration or NoneType
         :returns: the linear transformation that, when applied to
                   the object in configuration conf1, minimizes the
                   RMS distance to the conformation in conf2, and the
@@ -357,7 +357,7 @@ class GroupOfAtoms(object):
         :type t: Scientific.Geometry.Transformation
         :returns: the displacement vectors for the atoms in the object
                   that correspond to the transformation t.
-        :rtype: :class:`~MMTK.ParticleProperties.ParticleVector`
+        :rtype: :class:~MMTK.ParticleProperties.ParticleVector
         """
         d = ParticleProperties.ParticleVector(self.universe())
         for a in self.atomIterator():
@@ -418,7 +418,7 @@ class GroupOfAtoms(object):
         :type filename: str
         :param configuration: a configuration object, or None for the
                               current configuration
-        :type configuration: :class:`~MMTK.ParticleProperties.Configuration` or NoneType
+        :type configuration: :class:~MMTK.ParticleProperties.Configuration or NoneType
         :param format: 'pdb' or 'vrml' (default: guess from filename)
                        A subformat specification can be added, separated
                        by a dot. Subformats of 'vrml' are 'wireframe'
@@ -445,11 +445,11 @@ class GroupOfAtoms(object):
         configuration.
 
         :param configuration: the configuration to be visualized
-        :type configuration: :class:`~MMTK.ParticleProperties.Configuration`
+        :type configuration: :class:~MMTK.ParticleProperties.Configuration
         :param format: 'pdb' (for running $PDBVIEWER) or 'vrml'
                        (for running $VRMLVIEWER). An optional
                        subformat specification can be added, see
-                       :class:`~MMTK.Collections.GroupOfAtoms.writeToFile` for the details.
+                       :class:~MMTK.Collections.GroupOfAtoms.writeToFile for the details.
         """
         universe = self.universe()
         if universe is not None:
@@ -461,7 +461,7 @@ class GroupOfAtoms(object):
         """
         :param velocities: a set of velocities for all atoms, or
                            None for the current velocities
-        :type velocities: :class:`~MMTK.ParticleProperties.ParticleVector`
+        :type velocities: :class:~MMTK.ParticleProperties.ParticleVector
         :returns: the kinetic energy
         :rtype: float
         """
@@ -479,7 +479,7 @@ class GroupOfAtoms(object):
         """
         :param velocities: a set of velocities for all atoms, or
                            None for the current velocities
-        :type velocities: :class:`~MMTK.ParticleProperties.ParticleVector`
+        :type velocities: :class:~MMTK.ParticleProperties.ParticleVector
         :returns: the temperature
         :rtype: float
         """
@@ -490,7 +490,7 @@ class GroupOfAtoms(object):
         """
         :param velocities: a set of velocities for all atoms, or
                            None for the current velocities
-        :type velocities: :class:`~MMTK.ParticleProperties.ParticleVector`
+        :type velocities: :class:~MMTK.ParticleProperties.ParticleVector
         :returns: the momentum
         :rtype: Scientific.Geometry.Vector
         """
@@ -505,10 +505,10 @@ class GroupOfAtoms(object):
         """
         :param velocities: a set of velocities for all atoms, or
                            None for the current velocities
-        :type velocities: :class:`~MMTK.ParticleProperties.ParticleVector`
+        :type velocities: :class:~MMTK.ParticleProperties.ParticleVector
         :param conf: a configuration object, or None for the
                      current configuration
-        :type conf: :class:`~MMTK.ParticleProperties.Configuration`
+        :type conf: :class:~MMTK.ParticleProperties.Configuration
         :returns: the angluar momentum
         :rtype: Scientific.Geometry.Vector
         """
@@ -525,10 +525,10 @@ class GroupOfAtoms(object):
         """
         :param velocities: a set of velocities for all atoms, or
                            None for the current velocities
-        :type velocities: :class:`~MMTK.ParticleProperties.ParticleVector`
+        :type velocities: :class:~MMTK.ParticleProperties.ParticleVector
         :param conf: a configuration object, or None for the
                      current configuration
-        :type conf: :class:`~MMTK.ParticleProperties.Configuration`
+        :type conf: :class:~MMTK.ParticleProperties.Configuration
         :returns: the angluar velocity
         :rtype: Scientific.Geometry.Vector
         """
@@ -547,7 +547,7 @@ class GroupOfAtoms(object):
         :returns: the universe of which the object is part. For an
                   object that is not part of a universe, the result is
                   None
-        :rtype: :class:`~MMTK.Universe.Universe`
+        :rtype: :class:~MMTK.Universe.Universe
         """
         atoms = self.atomList()
         if not atoms:
@@ -581,7 +581,7 @@ class GroupOfAtoms(object):
         :returns: a ParticleScalar object that contains a value of 1
                   for each atom that is in the object and a value of 0 for all
                   other atoms in the universe
-        :rtype: :class:`~MMTK.ParticleProperties.ParticleScalar`
+        :rtype: :class:~MMTK.ParticleProperties.ParticleScalar
         """
         universe = self.universe()
         if universe is None:
@@ -690,7 +690,7 @@ class Collection(GroupOfAtoms, Visualization.Viewable):
         :type r2: float
         :returns: a collection of all elements whose
                   distance from point is between r1 and r2
-        :rtype: :class:`~MMTK.Collections.Collection`
+        :rtype: :class:~MMTK.Collections.Collection
         """
         if r1 > r2:
             r1, r2 = r2, r1
@@ -714,7 +714,7 @@ class Collection(GroupOfAtoms, Visualization.Viewable):
         :type p2: Scientific.Geometry.Vector
         :returns: a collection of all elements that lie
                   within the rectangular volume
-        :rtype: :class:`~MMTK.Collections.Collection`
+        :rtype: :class:~MMTK.Collections.Collection
         """
         x1 = N.minimum(p1.array, p2.array)
         x2 = N.maximum(p1.array, p2.array)
@@ -767,7 +767,7 @@ class Collection(GroupOfAtoms, Visualization.Viewable):
         :returns: the universe of which all objects in the collection
                   are part. If no such universe exists, the return value
                   is None
-        :rtype: :class:`~MMTK.Universe.Universe`
+        :rtype: :class:~MMTK.Universe.Universe
         """
         if not self.objects:
             return None
@@ -878,7 +878,7 @@ class Collection(GroupOfAtoms, Visualization.Viewable):
 def isCollection(object):
     """
     :param object: any Python object
-    :returns: True if the object is a :class:`~MMTK.Collections.Collection`
+    :returns: True if the object is a :class:~MMTK.Collections.Collection
     """
     return hasattr(object, 'is_collection')
 

@@ -77,7 +77,7 @@ class VelocityVerletIntegrator(Integrator):
     def __init__(self, universe, **options):
         """
         :param universe: the universe on which the integrator acts
-        :type universe: :class:`~MMTK.Universe.Universe`
+        :type universe: :class:~MMTK.Universe.Universe
         :keyword steps: the number of integration steps (default is 100)
         :type steps: int
         :keyword delta_t: the time step (default is 1 fs)

@@ -101,9 +101,9 @@ class BondLength(InternalCoordinate):
     def __init__(self, atom1, atom2):
         """
         :param atom1: the first atom that defines the bond
-        :type atom1: :class:`~MMTK.ChemicalObjects.Atom`
+        :type atom1: :class:~MMTK.ChemicalObjects.Atom
         :param atom2: the second atom that defines the bond
-        :type atom2: :class:`~MMTK.ChemicalObjects.Atom`
+        :type atom2: :class:~MMTK.ChemicalObjects.Atom
         """
         InternalCoordinate.__init__(self, [atom1, atom2])
         self.findFragments((atom1, set([atom2]), atom2),
@@ -113,7 +113,7 @@ class BondLength(InternalCoordinate):
     def getValue(self, conf = None):
         """
         :param conf: a configuration (defaults to the current configuration)
-        :type conf: :class:`~MMTK.ParticleProperties.Configuration`
+        :type conf: :class:~MMTK.ParticleProperties.Configuration
         :returns: the length of the bond in the configuration conf
         :rtype: float
         """
@@ -165,11 +165,11 @@ class BondAngle(InternalCoordinate):
     def __init__(self, atom1, atom2, atom3):
         """
         :param atom1: the first atom that defines the angle
-        :type atom1: :class:`~MMTK.ChemicalObjects.Atom`
+        :type atom1: :class:~MMTK.ChemicalObjects.Atom
         :param atom2: the second and central atom that defines the bond
-        :type atom2: :class:`~MMTK.ChemicalObjects.Atom`
+        :type atom2: :class:~MMTK.ChemicalObjects.Atom
         :param atom3: the third atom that defines the bond
-        :type atom3: :class:`~MMTK.ChemicalObjects.Atom`
+        :type atom3: :class:~MMTK.ChemicalObjects.Atom
         """
         InternalCoordinate.__init__(self, [atom1, atom2, atom3])
         excluded = set([atom2])
@@ -178,7 +178,7 @@ class BondAngle(InternalCoordinate):
     def getValue(self, conf = None):
         """
         :param conf: a configuration (defaults to the current configuration)
-        :type conf: :class:`~MMTK.ParticleProperties.Configuration`
+        :type conf: :class:~MMTK.ParticleProperties.Configuration
         :returns: the size of the angle in the configuration conf
         :rtype: float
         """
@@ -244,15 +244,15 @@ class DihedralAngle(InternalCoordinate):
     def __init__(self, atom1, atom2, atom3, atom4):
         """
         :param atom1: the first atom that defines the dihedral
-        :type atom1: :class:`~MMTK.ChemicalObjects.Atom`
+        :type atom1: :class:~MMTK.ChemicalObjects.Atom
         :param atom2: the second atom that defines the dihedral,
                       must be on the central bond
-        :type atom2: :class:`~MMTK.ChemicalObjects.Atom`
+        :type atom2: :class:~MMTK.ChemicalObjects.Atom
         :param atom3: the third atom that defines the dihedral,
                       must be on the central bond
-        :type atom3: :class:`~MMTK.ChemicalObjects.Atom`
+        :type atom3: :class:~MMTK.ChemicalObjects.Atom
         :param atom4: the fourth atom that defines the dihedral
-        :type atom4: :class:`~MMTK.ChemicalObjects.Atom`
+        :type atom4: :class:~MMTK.ChemicalObjects.Atom
         """
         InternalCoordinate.__init__(self, [atom1, atom2, atom3, atom4])
         excluded = set([atom2, atom3])
@@ -261,7 +261,7 @@ class DihedralAngle(InternalCoordinate):
     def getValue(self, conf = None):
         """
         :param conf: a configuration (defaults to the current configuration)
-        :type conf: :class:`~MMTK.ParticleProperties.Configuration`
+        :type conf: :class:~MMTK.ParticleProperties.Configuration
         :returns: the size of the dihedral angle in the configuration conf
         :rtype: float
         """

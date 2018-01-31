@@ -35,7 +35,7 @@ from Scientific import N
 def surfaceAndVolume(object, probe_radius = 0.):
     """
     :param object: a chemical object
-    :type object: :class:`~MMTK.Collections.GroupOfAtoms`
+    :type object: :class:~MMTK.Collections.GroupOfAtoms
     :param probe_radius: the distance from the vdW-radii of the atoms
                          at which the surface is computed
     :type probe_radius: float
@@ -55,7 +55,7 @@ def surfaceAndVolume(object, probe_radius = 0.):
 def surfaceAtoms(object, probe_radius = 0.):
     """
     :param object: a chemical object
-    :type object: :class:`~MMTK.Collections.GroupOfAtoms`
+    :type object: :class:~MMTK.Collections.GroupOfAtoms
     :param probe_radius: the distance from the vdW-radii of the atoms
                          at which the surface is computed
     :type probe_radius: float
@@ -76,7 +76,7 @@ def surfaceAtoms(object, probe_radius = 0.):
 def surfacePointsAndGradients(object, probe_radius = 0., point_density = 258):
     """
     :param object: a chemical object
-    :type object: :class:`~MMTK.Collections.GroupOfAtoms`
+    :type object: :class:~MMTK.Collections.GroupOfAtoms
     :param probe_radius: the distance from the vdW-radii of the atoms
                          at which the surface is computed
     :type probe_radius: float
@@ -131,9 +131,9 @@ def findContacts(object1, object2, contact_factor = 1.0, cutoff = 0.0):
     where r1 and r2 are the atomic van-der-Waals radii.
 
     :param object1: a chemical object
-    :type object1: :class:`~MMTK.Collections.GroupOfAtoms`
+    :type object1: :class:~MMTK.Collections.GroupOfAtoms
     :param object2: a chemical object
-    :type object2: :class:`~MMTK.Collections.GroupOfAtoms`
+    :type object2: :class:~MMTK.Collections.GroupOfAtoms
     :param contact_factor: a scale factor in the contact distance criterion
     :type contact_factor: float
     :param cutoff: a constant in the contact distance criterion

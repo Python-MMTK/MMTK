@@ -24,9 +24,9 @@ import copy
 def numberOfSolventMolecules(universe, solvent, density):
     """
     :param universe: a finite universe
-    :type universe: :class:`~MMTK.Universe.Universe`
+    :type universe: :class:~MMTK.Universe.Universe
     :param solvent: a molecule, or the name of a molecule in the database
-    :type solvent: :class:`~MMTK.ChemicalObjects.Molecule` or str
+    :type solvent: :class:~MMTK.ChemicalObjects.Molecule or str
     :param density: the density of the solvent (amu/nm**3)
     :type density: float
     :returns: the number of solvent molecules that must be added to the
@@ -57,9 +57,9 @@ def addSolvent(universe, solvent, density, scale_factor=4.):
     any two molecules.
 
     :param universe: a finite universe
-    :type universe: :class:`~MMTK.Universe.Universe`
+    :type universe: :class:~MMTK.Universe.Universe
     :param solvent: a molecule, or the name of a molecule in the database
-    :type solvent: :class:`~MMTK.ChemicalObjects.Molecule` or str
+    :type solvent: :class:~MMTK.ChemicalObjects.Molecule or str
     :param density: the density of the solvent (amu/nm**3)
     :type density: float
     :param scale_factor: the factor by which the initial universe is
@@ -111,7 +111,7 @@ def shrinkUniverse(universe, temperature=300.*Units.K, trajectory=None,
                    scale_factor=0.95):
     """
     Shrinks the universe, which must have been scaled up by
-    :class:`~MMTK.Solvation.addSolvent`, back to its original size.
+    :class:~MMTK.Solvation.addSolvent, back to its original size.
     The compression is performed in small steps, in between which
     some energy minimization and molecular dynamics steps are executed.
     The molecular dynamics is run at the given temperature, and
@@ -119,13 +119,13 @@ def shrinkUniverse(universe, temperature=300.*Units.K, trajectory=None,
     configurations are stored.
 
     :param universe: a finite universe
-    :type universe: :class:`~MMTK.Universe.Universe`
+    :type universe: :class:~MMTK.Universe.Universe
     :param temperature: the temperature at which the Molecular Dynamics
                         steps are run
     :type temperature: float
     :param trajectory: the trajectory in which the progress of the
                        shrinking procedure is stored, or a filename
-    :type trajectory: :class:`~MMTK.Trajectory.Trajectory` or str
+    :type trajectory: :class:~MMTK.Trajectory.Trajectory or str
     :param scale_factor: the factor by which the universe is scaled
                          at each reduction step
     :type scale_factor: float

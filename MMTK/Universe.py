@@ -128,7 +128,7 @@ class Universe(Collections.GroupOfAtoms, Visualization.Viewable):
 
     def __repr__(self):
         return self.__class__.__name__ + ' ' + self.name + ' containing ' + \
-               `len(self._objects)` + ' objects.'
+               len(self._objects) + ' objects.'
     __str__ = __repr__
 
     def __copy__(self):
@@ -195,10 +195,10 @@ class Universe(Collections.GroupOfAtoms, Visualization.Viewable):
         if ChemicalObjects.isChemicalObject(object):
             if (not steal) and object.parent is not None:
                 if isUniverse(object.parent):
-                    raise ValueError(`object` +
+                    raise ValueError(object +
                                       ' is already in another universe')
                 else:
-                    raise ValueError(`object` + ' is part of another object')
+                    raise ValueError(object + ' is part of another object')
             object.parent = self
             self._objects.addObject(object)
             self._changed(True)
@@ -224,7 +224,7 @@ class Universe(Collections.GroupOfAtoms, Visualization.Viewable):
         """
         if ChemicalObjects.isChemicalObject(object):
             if object.parent != self:
-                raise ValueError(`object` + ' is not in this universe.')
+                raise ValueError(object + ' is not in this universe.')
             object.parent = None
             self._objects.removeObject(object)
             self._changed(True)
@@ -240,7 +240,7 @@ class Universe(Collections.GroupOfAtoms, Visualization.Viewable):
             self._environment.remove(object)
             self._changed(False)
         else:
-            raise ValueError(`object` + ' is not in this universe.')
+            raise ValueError(object + ' is not in this universe.')
 
     def selectShell(self, point, r1, r2=0.):
         """
@@ -380,7 +380,7 @@ class Universe(Collections.GroupOfAtoms, Visualization.Viewable):
     def setForceField(self, forcefield):
         """
         :param forcefield: the new forcefield for this universe
-        :type forcefield: :class:`~MMTK.ForceFields.ForceField.ForceField`
+        :type forcefield: :class:~MMTK.ForceFields.ForceField.ForceField
         """
         self._forcefield = forcefield
         self._evaluator = {}
@@ -412,7 +412,7 @@ class Universe(Collections.GroupOfAtoms, Visualization.Viewable):
                   copy of the current state, but a reference: the positions
                   in the configuration object will change when coordinate
                   changes are applied to the universe in whatever way.
-        :rtype: :class:`~MMTK.ParticleProperties.Configuration`
+        :rtype: :class:~MMTK.ParticleProperties.Configuration
         """
         if self._configuration is None:
             np = self.numberOfAtoms()
@@ -455,7 +455,7 @@ class Universe(Collections.GroupOfAtoms, Visualization.Viewable):
         data even when another thread is modifying the configuration.
 
         :returns: a copy of the current configuration
-        :rtype: :class:`~MMTK.ParticleProperties.Configuration`
+        :rtype: :class:~MMTK.ParticleProperties.Configuration
         """
         self.acquireReadStateLock()
         try:
@@ -477,7 +477,7 @@ class Universe(Collections.GroupOfAtoms, Visualization.Viewable):
         the given input configuration.
         
         :param configuration: the new configuration
-        :type configuration: :class:`~MMTK.ParticleProperties.Configuration`
+        :type configuration: :class:~MMTK.ParticleProperties.Configuration
         :param block: if True, the operation blocks other threads
                       from accessing the configuration before the update
                       is completed. If False, it is assumed that the
@@ -502,7 +502,7 @@ class Universe(Collections.GroupOfAtoms, Visualization.Viewable):
         the given displacement vector.
         
         :param displacement: the displacement vector for each atom
-        :type displacement: :class:`~MMTK.ParticleProperties.ParticleVector`
+        :type displacement: :class:~MMTK.ParticleProperties.ParticleVector
         :param block: if True, the operation blocks other threads
                       from accessing the configuration before the update
                       is completed. If False, it is assumed that the
@@ -525,7 +525,7 @@ class Universe(Collections.GroupOfAtoms, Visualization.Viewable):
         :param datatype: the datatype of the array allocated to hold the data
         :returns: the values of the attribute 'name' for each atom
                   in the universe.
-        :rtype: :class:`~MMTK.ParticleProperties.ParticleScalar`
+        :rtype: :class:~MMTK.ParticleProperties.ParticleScalar
         """
         conf = self.configuration()
         array = N.zeros((len(conf),), datatype)
@@ -541,7 +541,7 @@ class Universe(Collections.GroupOfAtoms, Visualization.Viewable):
         :returns: the values of the boolean attribute 'name' for each atom
                   in the universe, or False for atoms that do not have
                   the attribute.
-        :rtype: :class:`~MMTK.ParticleProperties.ParticleScalar`
+        :rtype: :class:~MMTK.ParticleProperties.ParticleScalar
         """
         conf = self.configuration()
         array = N.zeros((len(conf),), N.Int)
@@ -555,7 +555,7 @@ class Universe(Collections.GroupOfAtoms, Visualization.Viewable):
     def masses(self):
         """
         :returns: the masses of all atoms in the universe
-        :rtype: :class:`~MMTK.ParticleProperties.ParticleScalar`
+        :rtype: :class:~MMTK.ParticleProperties.ParticleScalar
         """
         if self._masses is None:
             self._masses = self.getParticleScalar('_mass')
@@ -567,7 +567,7 @@ class Universe(Collections.GroupOfAtoms, Visualization.Viewable):
         force field.
 
         :returns: the charges of all atoms in the universe
-        :rtype: :class:`~MMTK.ParticleProperties.ParticleScalar`
+        :rtype: :class:~MMTK.ParticleProperties.ParticleScalar
         """
         ff = self._forcefield
         if ff is None:
@@ -581,7 +581,7 @@ class Universe(Collections.GroupOfAtoms, Visualization.Viewable):
                   copy of the current state but a reference to it;
                   its data will change whenever any changes are made
                   to the current velocities.
-        :rtype: :class:`~MMTK.ParticleProperties.ParticleVector`
+        :rtype: :class:~MMTK.ParticleProperties.ParticleVector
         """
         try:
             return self._atom_properties['velocity']
@@ -595,7 +595,7 @@ class Universe(Collections.GroupOfAtoms, Visualization.Viewable):
         
         :param velocities: the new velocities, or None to remove
                            the velocity definition from the universe
-        :type velocities: :class:`~MMTK.ParticleProperties.ParticleVector`
+        :type velocities: :class:~MMTK.ParticleProperties.ParticleVector
         :param block: if True, the operation blocks other threads
                       from accessing the configuration before the update
                       is completed. If False, it is assumed that the
@@ -709,11 +709,11 @@ class Universe(Collections.GroupOfAtoms, Visualization.Viewable):
         :param configuration: the configuration in which the
                               constraints are enforced
                               (None for current configuration)
-        :type configuration: :class:`~MMTK.ParticleProperties.Configuration`
+        :type configuration: :class:~MMTK.ParticleProperties.Configuration
         :param velocities: the velocities in which the
                               constraints are enforced
                               (None for current velocities)
-        :type velocities: :class:`~MMTK.ParticleProperties.ParticleVector`
+        :type velocities: :class:~MMTK.ParticleProperties.ParticleVector
         """
         from MMTK import Dynamics
         Dynamics.enforceConstraints(self, configuration)
@@ -728,7 +728,7 @@ class Universe(Collections.GroupOfAtoms, Visualization.Viewable):
         :param velocities: the velocities in which the
                               constraints are enforced
                               (None for current velocities)
-        :type velocities: :class:`~MMTK.ParticleProperties.ParticleVector`
+        :type velocities: :class:~MMTK.ParticleProperties.ParticleVector
         :param block: if True, the operation blocks other threads
                       from accessing the configuration before the update
                       is completed. If False, it is assumed that the
@@ -763,7 +763,7 @@ class Universe(Collections.GroupOfAtoms, Visualization.Viewable):
     def forcefield(self):
         """
         :returns: the force field
-        :rtype: :class:`~MMTK.ForceFields.ForceField.ForceField`
+        :rtype: :class:~MMTK.ForceFields.ForceField.ForceField
         """
         return self._forcefield
 
@@ -791,9 +791,9 @@ class Universe(Collections.GroupOfAtoms, Visualization.Viewable):
     def energy(self, subset1 = None, subset2 = None, small_change=False):
         """
         :param subset1: a subset of a universe, or None
-        :type subset1: :class:`~MMTK.ChemicalObjects.ChemicalObject`
+        :type subset1: :class:~MMTK.ChemicalObjects.ChemicalObject
         :param subset2: a subset of a universe, or None
-        :type subset2: :class:`~MMTK.ChemicalObjects.ChemicalObject`
+        :type subset2: :class:~MMTK.ChemicalObjects.ChemicalObject
         :param small_change: if True, algorithms optimized for small
                              configurational changes relative to the last
                              evaluation may be used.
@@ -812,7 +812,7 @@ class Universe(Collections.GroupOfAtoms, Visualization.Viewable):
                            small_change=False):
         """
         :returns: the energy and the energy gradients
-        :rtype: (float, :class:`~MMTK.ParticleProperties.ParticleVector`)
+        :rtype: (float, :class:~MMTK.ParticleProperties.ParticleVector)
         """
         eval = self.energyEvaluator(subset1, subset2)
         return eval(1, 0, small_change)
@@ -821,7 +821,7 @@ class Universe(Collections.GroupOfAtoms, Visualization.Viewable):
                                 small_change=False):
         """
         :returns: the energy and the force constants
-        :rtype: (float, :class:`~MMTK.ParticleProperties.SymmetricPairTensor`)
+        :rtype: (float, :class:~MMTK.ParticleProperties.SymmetricPairTensor)
         """
         eval = self.energyEvaluator(subset1, subset2)
         e, g, fc = eval(0, 1, small_change)
@@ -831,8 +831,8 @@ class Universe(Collections.GroupOfAtoms, Visualization.Viewable):
                                          small_change=False):
         """
         :returns: the energy, its gradients, and the force constants
-        :rtype: (float, :class:`~MMTK.ParticleProperties.ParticleVector`,
-                 :class:`~MMTK.ParticleProperties.SymmetricPairTensor`)
+        :rtype: (float, :class:~MMTK.ParticleProperties.ParticleVector,
+                 :class:~MMTK.ParticleProperties.SymmetricPairTensor)
         """
         eval = self.energyEvaluator(subset1, subset2)
         return eval(1, 1, small_change)
@@ -851,13 +851,13 @@ class Universe(Collections.GroupOfAtoms, Visualization.Viewable):
     def configurationDifference(self, conf1, conf2):
         """
         :param conf1: a configuration
-        :type conf1: :class:`~MMTK.ParticleProperties.Configuration`
+        :type conf1: :class:~MMTK.ParticleProperties.Configuration
         :param conf2: a configuration
-        :type conf2: :class:`~MMTK.ParticleProperties.Configuration`
+        :type conf2: :class:~MMTK.ParticleProperties.Configuration
         :returns: the difference vector between the two configurations
                   for each atom, taking into account the universe
                   topology (e.g. minimum-image convention).
-        :rtype: :class:`~MMTK.ParticleProperties.ParticleVector`
+        :rtype: :class:~MMTK.ParticleProperties.ParticleVector
         """
         d = conf2-conf1
         cell = conf1.cell_parameters
@@ -992,7 +992,7 @@ class Universe(Collections.GroupOfAtoms, Visualization.Viewable):
                   create a configuration in which none of the objects
                   is split across the edge of the elementary cell.
                   For nonperiodic universes the return value is None.
-        :rtype: :class:`~MMTK.ParticleProperties.ParticleVector`
+        :rtype: :class:~MMTK.ParticleProperties.ParticleVector
         """
         return None
 
@@ -1005,7 +1005,7 @@ class Universe(Collections.GroupOfAtoms, Visualization.Viewable):
         :returns: configuration conf (default: current configuration)
                   corrected by the contiguous object offsets for that
                   configuration.
-        :rtype: :class:`~MMTK.ParticleProperties.Configuration`
+        :rtype: :class:~MMTK.ParticleProperties.Configuration
         """
         if conf is None:
             conf = self.configuration()
@@ -1122,7 +1122,7 @@ class Universe(Collections.GroupOfAtoms, Visualization.Viewable):
         except AttributeError:
             classname = self.__class__.__name__
         s = 'c(%s,[%s])' % \
-            (`classname + self._descriptionArguments()`,
+            (classname + self._descriptionArguments(),
              ','.join(items))
         return s
 
@@ -1138,7 +1138,7 @@ class Universe(Collections.GroupOfAtoms, Visualization.Viewable):
         being updated.
 
         :param trajectory: a trajectory object for this universe
-        :type trajectory: :class:`~MMTK.Trajectory.Trajectory`
+        :type trajectory: :class:~MMTK.Trajectory.Trajectory
         :param step: a step number, or None for the default step
                      (0 for a standard trajectory, the last written
                      step for a restart trajectory)
@@ -1262,7 +1262,7 @@ class InfiniteUniverse(Universe):
     def __init__(self, forcefield=None, **properties):
         """
         :param forcefield: a force field, or None for no force field
-        :type forcefield: :class:`~MMTK.ForceFields.ForceField.ForceField`
+        :type forcefield: :class:~MMTK.ForceFields.ForceField.ForceField
         """
         Universe.__init__(self, forcefield, properties)
         self._createSpec()
@@ -1420,7 +1420,7 @@ class OrthorhombicPeriodicUniverse(Periodic3DUniverse):
         :param size: a sequence of length three specifying the edge
                      lengths along the x, y, and z directions
         :param forcefield: a force field, or None for no force field
-        :type forcefield: :class:`~MMTK.ForceFields.ForceField.ForceField`
+        :type forcefield: :class:~MMTK.ForceFields.ForceField.ForceField
         """
         Universe.__init__(self, forcefield, properties)
         self.data = N.zeros((3,), N.Float)
@@ -1562,7 +1562,7 @@ class ParallelepipedicPeriodicUniverse(Periodic3DUniverse):
         :param shape: the basis vectors
         :type shape: sequence of Scientific.Geometry.Vector
         :param forcefield: a force field, or None for no force field
-        :type forcefield: :class:`~MMTK.ForceFields.ForceField.ForceField`
+        :type forcefield: :class:~MMTK.ForceFields.ForceField.ForceField
         """
         Universe.__init__(self, forcefield, properties)
         self.data = N.zeros((19,), N.Float)
