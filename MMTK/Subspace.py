@@ -101,8 +101,8 @@ class Subspace(object):
     def __init__(self, universe, vectors):
         """
         :param universe: the universe for which the subspace is created
-        :type universe: :class:`~MMTK.Universe.Universe`
-        :param vectors: a list of :class:`~MMTK.ParticleProperties.ParticleVector`
+        :type universe: :class:~MMTK.Universe.Universe
+        :param vectors: a list of :class:~MMTK.ParticleProperties.ParticleVector
                         objects that define the subspace. They need not be
                         orthogonal or linearly independent.
         :type vectors: list
@@ -125,7 +125,7 @@ class Subspace(object):
         Construct a basis for the subspace by orthonormalization of
         the input vectors using Singular Value Decomposition. The
         basis consists of a sequence of
-        :class:`~MMTK.ParticleProperties.ParticleVector`
+        :class:~MMTK.ParticleProperties.ParticleVector
         objects that are orthonormal in configuration space.
         :returns: the basis
         """
@@ -170,7 +170,7 @@ class Subspace(object):
     def projectionOf(self, vector):
         """
         :param vector: a particle vector
-        :type vector: :class:`~MMTK.ParticleProperties.ParticleVector`
+        :type vector: :class:~MMTK.ParticleProperties.ParticleVector
         :returns: the projection of the vector onto the subspace.
         """
         vector = vector.array
@@ -183,7 +183,7 @@ class Subspace(object):
     def projectionComplementOf(self, vector):
         """
         :param vector: a particle vector
-        :type vector: :class:`~MMTK.ParticleProperties.ParticleVector`
+        :type vector: :class:~MMTK.ParticleProperties.ParticleVector
         :returns: the projection of the vector onto the orthogonal complement
                   of the subspace.
         """
@@ -192,7 +192,7 @@ class Subspace(object):
     def complement(self):
         """
         :returns: the orthogonal complement subspace
-        :rtype: :class:`~MMTK.Subspace.Subspace`
+        :rtype: :class:~MMTK.Subspace.Subspace
         """
         basis = []
         for i in range(self.universe.numberOfAtoms()):
@@ -215,7 +215,7 @@ class LinkedRigidBodyMotionSubspace(Subspace):
     def __init__(self, universe, rigid_bodies):
         """
         :param universe: the universe for which the subspace is created
-        :type universe: :class:`~MMTK.Universe.Universe`
+        :type universe: :class:~MMTK.Universe.Universe
         :param rigid_bodies: a list or set of rigid bodies
                              with some common atoms
         """
@@ -274,7 +274,7 @@ class RigidMotionSubspace(Subspace):
     def __init__(self, universe, objects):
         """
         :param universe: the universe for which the subspace is created
-        :type universe: :class:`~MMTK.Universe.Universe`
+        :type universe: :class:~MMTK.Universe.Universe
         :param objects: a sequence of objects whose rigid-body motion is
                         included in the subspace
         """
@@ -363,7 +363,7 @@ class PairDistanceSubspace(Subspace):
     def __init__(self, universe, atom_pairs):
         """
         :param universe: the universe for which the subspace is created
-        :type universe: :class:`~MMTK.Universe.Universe`
+        :type universe: :class:~MMTK.Universe.Universe
         :param atom_pairs: a sequence of atom pairs whose distance-vector
                            motion is included in the subspace
         """

@@ -8,6 +8,9 @@ __docformat__ = 'restructuredtext'
 from MMTK import Units, ParticleProperties, Visualization
 from Scientific import N
 import copy
+import six
+import numpy as np
+ 
 
 #
 # Import LAPACK routines or equivalents
@@ -84,14 +87,14 @@ class Mode(ParticleProperties.ParticleVector):
 
     def view(self, factor=1., subset=None):
         """
-        Start an animation of the mode. See :class:`~MMTK.Visualization` for
+        Start an animation of the mode. See :class:~MMTK.Visualization for
         the configuration of external viewers.
 
         :param factor: a scaling factor for the amplitude of the motion
         :type factor: float
         :param subset: the subset of the universe to be shown
                        (default: the whole universe)
-        :type subset: :class:`~MMTK.Collections.GroupOfAtoms`
+        :type subset: :class:~MMTK.Collections.GroupOfAtoms
         """
         Visualization.viewMode(self, factor, subset)
 
@@ -162,7 +165,7 @@ class NormalModes(object):
                            of 6 is right for molecules in vacuum.
         :type first_mode: int
         :returns: the thermal fluctuations for each atom in the universe
-        :rtype: :class:`~MMTK.ParticleProperties.ParticleScalar`
+        :rtype: :class:~MMTK.ParticleProperties.ParticleScalar
         """
         raise NotImplementedError
 
@@ -174,7 +177,7 @@ class NormalModes(object):
         :type first_mode: int
         :returns: the anisotropic thermal fluctuations for each
                   atom in the universe
-        :rtype: :class:`~MMTK.ParticleProperties.ParticleTensor`
+        :rtype: :class:~MMTK.ParticleProperties.ParticleTensor
         """
         raise NotImplementedError
 
