@@ -5,6 +5,9 @@
 
 
 import unittest
+import pytest
+
+
 from MMTK import *
 from MMTK.Trajectory import Trajectory, SnapshotGenerator, TrajectoryOutput
 from Scientific import N
@@ -61,6 +64,7 @@ class TrajectoryTest:
         except OSError:
             pass
 
+    @pytest.mark.skip
     def test_snapshot(self):
 
         initial = self.universe.copyConfiguration()
