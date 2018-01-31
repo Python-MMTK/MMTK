@@ -106,7 +106,7 @@ class Subspace(object):
             vt = N.zeros((nvectors, min_n_m), N.Float)
             work = N.zeros((1,), N.Float)
             iwork = N.zeros((8*min_n_m,), int_type)
-            u, sv, _ = svd(coerce_array(np.asarray(basis)))
+            u, sv, _ = svd(basis)
             u, sv = N.array(u), N.array(sv)
             svmax = N.maximum.reduce(sv)
             nvectors = N.add.reduce(N.greater(sv, 1.e-10*svmax))

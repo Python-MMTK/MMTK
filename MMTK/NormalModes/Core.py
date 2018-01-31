@@ -233,7 +233,7 @@ class NormalModes(object):
             min_n_m = min(3*natoms, nexcluded)
             vt = N.zeros((nexcluded, min_n_m), N.Float)
             iwork = N.zeros((8*min_n_m,), int_type)
-            u, sv, _ = svd(coerce_array(np.asarray(self.basis)))
+            u, sv, _ = svd(self.basis)
             u, sv = N.array(u), N.array(sv)
             self.basis = u
             svmax = N.maximum.reduce(sv)
@@ -243,7 +243,7 @@ class NormalModes(object):
                 self.basis[i+nexcluded] = N.ravel(basis[i].array*self.weights)
             min_n_m = min(3*natoms, ntotal)
             vt = N.zeros((ntotal, min_n_m), N.Float)
-            u, sv, _ = svd(coerce_array(np.asarray(self.basis)))
+            u, sv, _ = svd(self.basis)
             u, sv = N.array(u), N.array(sv)
             self.basis = u
             svmax = N.maximum.reduce(sv)
@@ -260,7 +260,7 @@ class NormalModes(object):
             min_n_m = min(3*natoms, nmodes)
             vt = N.zeros((nmodes, min_n_m), N.Float)
             iwork = N.zeros((8*min_n_m,), int_type)
-            u, sv, _ = svd(coerce_array(np.asarray(self.basis)))
+            u, sv, _ = svd(self.basis)
             u, sv = N.array(u), N.array(sv)
             self.basis = u
             svmax = N.maximum.reduce(sv)
